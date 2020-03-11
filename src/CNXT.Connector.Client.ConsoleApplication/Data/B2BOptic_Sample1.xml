@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<b2bOptic>
+  <header msgType="ORDER">
+    <customersOrderId />
+    <distributorsOrderId />
+    <timeStamps>
+      <dateTime step="CREATE">2020-02-17T12:00:00.924+01:00</dateTime>
+    </timeStamps>
+    <orderParties role="MANUFACTURER">
+      <id />
+      <name>Rodenstock GmbH</name>
+    </orderParties>
+    <software typeOf="ORIGINATOR">
+      <name>ImpressionIST 4</name>
+      <version>0.7.17-SNAPSHOT</version>
+    </software>
+    <portalOrderId />
+  </header>
+  <items>
+    <item>
+      <referenceNo>11268f33-37d4-4149-9d58-bd325ec1d465</referenceNo>
+      <referenceText>1234567</referenceText>
+      <manufacturer>Rodenstock GmbH</manufacturer>
+      <pair>
+        <patient>
+          <id>bd81df25-b39c-4776-8006-efab4b973612</id>
+          <name>Max Mustermann</name>
+          <address />
+          <contact>
+            <firstName>Max</firstName>
+            <lastName>Mustermann</lastName>
+          </contact>
+          <gender>MALE</gender>
+          <dateOfBirth>1981-04-11</dateOfBirth>
+        </patient>
+      </pair>
+    </item>
+  </items>
+</b2bOptic>

@@ -1,0 +1,888 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "CNXT-Connector",
+    "description": "The CNXT-Connector is developed by Rodenstock GmbH to integrate data from measurement devices such as DNEye<sup>®</sup> Scanner, Rodenstock Fundus Scanner, and ImpressionIST<sup>®</sup> into 3rd party applications as well as into several applications of Rodenstock such as WinFit, Rodenstock Consulting etc. If you have any feedback then please feel free to contact us via email. Copyright © Rodenstock GmbH 2020",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Rodenstock GmbH",
+      "url": "https://www.rodenstock.com/cnxt",
+      "email": "cnxt@rodenstock.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "CNXT-Connector",
+      "description": ""
+    },
+    {
+      "name": "patients",
+      "description": ""
+    },
+    {
+      "name": "sessions",
+      "description": ""
+    }
+  ],
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Patient": {
+        "type": "object",
+        "description": "Represents a patient",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the patient"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the patient"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name of the patient"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the patient"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "Female",
+              "Male",
+              "Other",
+              "Unknown"
+            ],
+            "description": "Gender of the patient (Supported values: Female, Male, Other, Unknown)"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "nullable": true,
+            "description": "Date of birth of the patient"
+          },
+          "latestSessionId": {
+            "type": "string",
+            "description": "The id of the latest session"
+          },
+          "latestSessionUpdate": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of the latest session update"
+          },
+          "sessions": {
+            "description": "Assigned sessions of the patient",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Session"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of creation of the patient"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of modification of the patient"
+          }
+        },
+        "required": [
+          "id",
+          "firstName",
+          "lastName",
+          "dateOfBirth"
+        ]
+      },
+      "PatientResponse": {
+        "description": "Represents a patient response",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Patient"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_links": {
+                "$ref": "#/components/schemas/PatientLink"
+              }
+            }
+          }
+        ]
+      },
+      "PatientsResponse": {
+        "type": "object",
+        "description": "Represents a patients response",
+        "properties": {
+          "patients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PatientResponse"
+            }
+          },
+          "_links": {
+            "$ref": "#/components/schemas/PaginationLink"
+          },
+          "pageInfo": {
+            "$ref": "#/components/schemas/PageInfo"
+          }
+        }
+      },
+      "PatientLink": {
+        "type": "object",
+        "description": "Represents patient related pagination links",
+        "properties": {
+          "self": {
+            "type": "object",
+            "properties": {
+              "href": {
+                "type": "string",
+                "description": "The URI of the main resource being expressed with a self link including all used query parameters"
+              }
+            }
+          },
+          "patient": {
+            "type": "object",
+            "properties": {
+              "href": {
+                "type": "string",
+                "description": "The URI of the patient being expressed with a self link"
+              }
+            }
+          },
+          "sessions": {
+            "type": "array",
+            "description": "An array of URIs of the associated session resources",
+            "items": {
+              "properties": {
+                "href": {
+                  "type": "string",
+                  "description": "The URI of the patient being expressed with a self link"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "self"
+        ]
+      },
+      "PatientFilter": {
+        "type": "object",
+        "description": "Represents a patient filter for querying patients",
+        "properties": {
+          "search": {
+            "type": "string",
+            "description": "Full text search parameter which is used for finding patients by first name or last name"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name which is used for finding patients by first name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name which is used for finding patients by last name"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "nullable": true,
+            "description": "Date of birth which is used for finding patients by date of birth"
+          },
+          "createdAfter": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Date of creation which is used for finding patients by date of creation"
+          },
+          "updatedAfter": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Date of modification which is used for finding patients by date of modification"
+          }
+        }
+      },
+      "SessionLink": {
+        "type": "object",
+        "description": "Represents session related pagination links",
+        "properties": {
+          "self": {
+            "type": "object",
+            "properties": {
+              "href": {
+                "type": "string",
+                "description": "The URI of the main resource being expressed with a self link including all used query parameters"
+              }
+            }
+          },
+          "session": {
+            "type": "object",
+            "properties": {
+              "href": {
+                "type": "string",
+                "description": "The URI of the session being expressed with a self link"
+              }
+            }
+          },
+          "patient": {
+            "type": "object",
+            "properties": {
+              "href": {
+                "type": "string",
+                "description": "The URI of the associated patient resource"
+              }
+            }
+          },
+          "b2bOptic": {
+            "type": "object",
+            "properties": {
+              "href": {
+                "type": "string",
+                "description": "The URI of the associated B2BOptic resource represented as B2BOptic XML document"
+              }
+            }
+          }
+        },
+        "required": [
+          "self"
+        ]
+      },
+      "PaginationLink": {
+        "type": "object",
+        "description": "Represents pagination links",
+        "properties": {
+          "self": {
+            "type": "object",
+            "properties": {
+              "href": {
+                "type": "string",
+                "description": "The URI of the main resource being expressed with a self link including all used query parameters"
+              }
+            }
+          },
+          "next": {
+            "type": "object",
+            "properties": {
+              "href": {
+                "type": "string",
+                "description": "The 'next' link pointing to the next page of the resource"
+              }
+            }
+          }
+        },
+        "required": [
+          "self"
+        ]
+      },
+      "PageInfo": {
+        "type": "object",
+        "description": "Represents pagination information",
+        "properties": {
+          "hasPreviousPage": {
+            "type": "boolean",
+            "description": "True if and only if this page is not the first page"
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "description": "True if and only if this page is not the last page"
+          },
+          "startCursor": {
+            "type": "string",
+            "description": "Cursor to the first edge, or null if this page is empty"
+          },
+          "endCursor": {
+            "type": "string",
+            "description": "Cursor to the last edge, or null if this page is empty"
+          }
+        },
+        "required": [
+          "self"
+        ]
+      },
+      "SessionState": {
+        "description": "State of the session or order",
+        "type": "string",
+        "enum": [
+          "CLOSED",
+          "OPEN",
+          "ORDERED",
+          "EXPORTED",
+          "SAVED"
+        ]
+      },
+      "SessionFilter": {
+        "type": "object",
+        "description": "Represents a patient filter for querying sessions.",
+        "properties": {
+          "createdAfter": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Date of creation which is used for finding sessions by date of creation"
+          },
+          "updatedAfter": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true,
+            "description": "Date of modification which is used for finding sessions by date of modification"
+          },
+          "state": {
+            "$ref": "#/components/schemas/SessionState",
+            "description": "State of the session"
+          }
+        }
+      },
+      "B2BOptic": {
+        "type": "object",
+        "description": "Represents B2BOptic related data",
+        "properties": {
+          "xml": {
+            "type": "string",
+            "description": "Represents the B2BOptic related data as XML Document"
+          },
+          "json": {
+            "type": "string",
+            "description": "Represents the B2BOptic related data as JSON"
+          }
+        }
+      },
+      "Session": {
+        "type": "object",
+        "description": "Represents a session or an order",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID of the session"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the session"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Notes of the session"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "CLOSED",
+              "OPEN",
+              "ORDERED",
+              "EXPORTED",
+              "SAVED"
+            ],
+            "description": "State of the session. (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
+          },
+          "patientId": {
+            "type": "string",
+            "description": "Patient ID associated with the session"
+          },
+          "patient": {
+            "description": "Assigned patient of the session",
+            "$ref": "#/components/schemas/Patient"
+          },
+          "b2bOptic": {
+            "description": "Assigned B2BOptic related data of the session",
+            "$ref": "#/components/schemas/B2BOptic"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of creation of the session"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Date of modification of the session"
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "SessionResponse": {
+        "description": "Represents a session response",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Session"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "_links": {
+                "$ref": "#/components/schemas/SessionLink"
+              }
+            }
+          }
+        ]
+      },
+      "SessionsResponse": {
+        "type": "object",
+        "description": "Represents a sessions response",
+        "properties": {
+          "sessions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SessionResponse"
+            }
+          },
+          "_links": {
+            "$ref": "#/components/schemas/PaginationLink"
+          },
+          "pageInfo": {
+            "$ref": "#/components/schemas/PageInfo"
+          }
+        }
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "",
+    "url": ""
+  },
+  "paths": {
+    "/patients/{id}": {
+      "get": {
+        "operationId": "getPatient",
+        "summary": "Retrieves a patient by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the patient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "include",
+            "required": false,
+            "in": "query",
+            "description": "List of related resources for including relationships directly into patient such as Session \r\n(Supported values: session)",
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the patient according to the defined ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Patient not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "patients"
+        ]
+      }
+    },
+    "/patients": {
+      "get": {
+        "operationId": "getPatients",
+        "summary": "Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.",
+        "parameters": [
+          {
+            "name": "first",
+            "required": true,
+            "in": "query",
+            "description": "Fetch only the first certain number of patients of the set. The default and maximum value is set to 25 patients per request.",
+            "example": 25,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 25
+            }
+          },
+          {
+            "name": "after",
+            "required": false,
+            "in": "query",
+            "description": "Fetch only patients in the set after (below) this cursor (exclusive).",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "in": "query",
+            "description": "Filter patients by field name e.g. lastName for filtering patients by their last name.\r\n(Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter)",
+            "schema": {
+              "$ref": "#/components/schemas/PatientFilter"
+            },
+            "style": "deepObject",
+            "explode": true
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "List of parameters to sort patients by field name.\r\n(Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).\r\n\r\nTo sort descending add a '-' as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt).",
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "required": false,
+            "in": "query",
+            "description": "List of related resources for including relationships directly into patient such as Session \r\n(Supported values: session)",
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of patients according to the defined pagination, filter, and sort parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientsResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "patients"
+        ]
+      }
+    },
+    "/sessions/{id}": {
+      "get": {
+        "operationId": "getSession",
+        "summary": "Retrieves a session by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the session",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "include",
+            "required": false,
+            "in": "query",
+            "description": "List of related resources for including relationships directly into session such as B2BOptic or Patient.\r\n(Supported values: b2boptic, patient)",
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the session according to the defined ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "302": {
+            "description": "Redirect to current location of the session"
+          },
+          "404": {
+            "description": "Session not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "sessions"
+        ]
+      },
+      "post": {
+        "operationId": "importB2BOptic",
+        "summary": "Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified first name, last name, or date of birth of the patient.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the session that needs to import data from B2BOptic XML document.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "required": false,
+            "in": "query",
+            "description": "Session (order) state of the session (order) that needs to import data from B2BOptic XML document.\r\n(Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "string",
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "The session has been successfully created/imported. Additionally, the assigned session IDs are returned as array of UUIDs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "The assigned session IDs as array of UUIDs",
+                    "example": "ef150a50-f2ce-4aad-b602-759c800cbd3a"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Session not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "sessions"
+        ]
+      }
+    },
+    "/sessions": {
+      "get": {
+        "operationId": "getSessions",
+        "summary": "Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as createdAfter, updatedAfter or to sort ascending or descending.",
+        "parameters": [
+          {
+            "name": "first",
+            "required": true,
+            "in": "query",
+            "description": "Read the first n sessions of the set. The default and maximum value is set to 25 sessions per request.",
+            "example": 25,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 25
+            }
+          },
+          {
+            "name": "after",
+            "required": false,
+            "in": "query",
+            "description": "Read all sessions in the set after (below) this cursor.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "filter",
+            "required": false,
+            "in": "query",
+            "description": "Filter session by field name e.g. state or by createdAfter for filtering sessions which are created after a specified date or by updatedAfter for filtering sessions which are updated after a specified date.\r\n(Supported values: createdAfter, updatedAfter, state).\r\n\r\nA state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED)",
+            "schema": {
+              "$ref": "#/components/schemas/SessionFilter"
+            },
+            "style": "deepObject",
+            "explode": true
+          },
+          {
+            "name": "sort",
+            "required": false,
+            "in": "query",
+            "description": "List of parameters to sort sessions by field name.\r\n(Supported values: createdAt, updatedAt).\r\n\r\nTo sort descending add a '-' as prefix e.g. (-createdAt, -updatedAt).",
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "include",
+            "required": false,
+            "in": "query",
+            "description": "List of related resources for including relationships directly into session such as Patient.\r\n(Supported values: patient)",
+            "style": "form",
+            "explode": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of sessions according to the defined pagination, filter, and sort parameters.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionsResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "sessions"
+        ]
+      },
+      "post": {
+        "operationId": "importB2BOpticAsNewSession",
+        "summary": "Imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.",
+        "parameters": [
+          {
+            "name": "state",
+            "required": false,
+            "in": "query",
+            "description": "Session (order) state of the session (order) that needs to import data from B2BOptic XML document.\r\n(Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/xml": {
+              "schema": {
+                "type": "string",
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "The session has been successfully created/imported. Additionally, the assigned session IDs are returned as array of UUIDs.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "The assigned session IDs as array of UUIDs.",
+                    "example": "7129bf37-d5f3-4cbe-a81a-2825d083dc59"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "sessions"
+        ]
+      }
+    },
+    "/sessions/{id}/b2boptic": {
+      "get": {
+        "operationId": "getB2bOptic",
+        "summary": "Retrieves a session by ID represented as B2BOptic XML document.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The assigned B2BOptic XML document according to the defined session ID.",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string",
+                  "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Session not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [
+          "sessions"
+        ]
+      }
+    }
+  }
+}
