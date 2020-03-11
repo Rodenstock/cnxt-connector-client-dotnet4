@@ -100,7 +100,7 @@ namespace CNXT.Connector.Client.Api
         /// <returns>ApiResponse of SessionsResponse</returns>
         ApiResponse<SessionsResponse> GetSessionsWithHttpInfo (int first, string after = default(string), SessionFilter filter = default(SessionFilter), List<string> sort = default(List<string>), List<string> include = default(List<string>));
         /// <summary>
-        /// Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified first name, last name, or date of birth of the patient.
+        /// Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.
         /// </summary>
         /// <remarks>
         /// 
@@ -113,7 +113,7 @@ namespace CNXT.Connector.Client.Api
         List<string> ImportB2BOptic (string id, string body, string state = default(string));
 
         /// <summary>
-        /// Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified first name, last name, or date of birth of the patient.
+        /// Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.
         /// </summary>
         /// <remarks>
         /// 
@@ -492,7 +492,7 @@ namespace CNXT.Connector.Client.Api
         }
 
         /// <summary>
-        /// Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified first name, last name, or date of birth of the patient. 
+        /// Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient. 
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID of the session that needs to import data from B2BOptic XML document.</param>
@@ -506,7 +506,7 @@ namespace CNXT.Connector.Client.Api
         }
 
         /// <summary>
-        /// Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified first name, last name, or date of birth of the patient. 
+        /// Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient. 
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID of the session that needs to import data from B2BOptic XML document.</param>
@@ -562,8 +562,8 @@ namespace CNXT.Connector.Client.Api
             }
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse)this.Configuration.ApiClient.CallApi(localVarPath,
-                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.PUT, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             int localVarStatusCode = (int)localVarResponse.StatusCode;
