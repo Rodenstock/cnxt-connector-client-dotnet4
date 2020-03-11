@@ -1,4 +1,4 @@
-/* 
+/*
  * CNXT-Connector
  *
  * The CNXT-Connector is developed by Rodenstock GmbH to integrate data from measurement devices such as DNEye<sup>®</sup> Scanner, Rodenstock Fundus Scanner, and ImpressionIST<sup>®</sup> into 3rd party applications as well as into several applications of Rodenstock such as WinFit, Rodenstock Consulting etc. If you have any feedback then please feel free to contact us via email. Copyright © Rodenstock GmbH 2020
@@ -15,6 +15,7 @@ using System.Linq;
 using RestSharp;
 using CNXT.Connector.Client.Client;
 using CNXT.Connector.Client.Model;
+using System.Reflection;
 
 namespace CNXT.Connector.Client.Api
 {
@@ -239,11 +240,11 @@ namespace CNXT.Connector.Client.Api
 
 
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+            IRestResponse localVarResponse = (IRestResponse)this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
+            int localVarStatusCode = (int)localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
@@ -253,7 +254,7 @@ namespace CNXT.Connector.Client.Api
 
             return new ApiResponse<PatientResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (PatientResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(PatientResponse)));
+                (PatientResponse)this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(PatientResponse)));
         }
 
         /// <summary>
@@ -311,17 +312,38 @@ namespace CNXT.Connector.Client.Api
 
             if (first != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "first", first)); // query parameter
             if (after != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "after", after)); // query parameter
-            if (filter != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "filter", filter)); // query parameter
+
+            // TODO: Bugfix for supporting deepObjects as query parameters
+            //if (filter != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "filter", filter)); // query parameter
+            if (filter != null)
+            {
+                foreach (PropertyInfo propertyInfo in filter.GetType().GetProperties().Where(property => property.GetValue(filter, null) != null))
+                {
+                    if (propertyInfo.PropertyType == typeof(DateTime) || propertyInfo.PropertyType == typeof(DateTime?))
+                    {
+                        DateTime? dateTimeValue = propertyInfo.GetValue(filter, null) as DateTime?;
+
+                        if (dateTimeValue.HasValue)
+                        {
+                            localVarQueryParams.Add(new KeyValuePair<string, string>(string.Format("filter[{0}]", char.ToLower(propertyInfo.Name[0]) + propertyInfo.Name.Substring(1)), dateTimeValue.Value.ToString("s")));
+                        }
+                    }
+                    else
+                    {
+                        localVarQueryParams.Add(new KeyValuePair<string, string>(string.Format("filter[{0}]", char.ToLower(propertyInfo.Name[0]) + propertyInfo.Name.Substring(1)), propertyInfo.GetValue(filter, null).ToString()));
+                    }
+                }
+            }
+
             if (sort != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "sort", sort)); // query parameter
             if (include != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("csv", "include", include)); // query parameter
 
-
             // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+            IRestResponse localVarResponse = (IRestResponse)this.Configuration.ApiClient.CallApi(localVarPath,
                 Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
+            int localVarStatusCode = (int)localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
@@ -331,8 +353,7 @@ namespace CNXT.Connector.Client.Api
 
             return new ApiResponse<PatientsResponse>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (PatientsResponse) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(PatientsResponse)));
+                (PatientsResponse)this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(PatientsResponse)));
         }
-
     }
 }
