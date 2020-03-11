@@ -642,9 +642,9 @@
           "sessions"
         ]
       },
-      "post": {
+      "put": {
         "operationId": "importB2BOptic",
-        "summary": "Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified first name, last name, or date of birth of the patient.",
+        "summary": "Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.",
         "parameters": [
           {
             "name": "id",
@@ -678,7 +678,7 @@
         },
         "responses": {
           "202": {
-            "description": "The session has been successfully created/imported. Additionally, the assigned session IDs are returned as array of UUIDs.",
+            "description": "The session has been successfully created or updated. Additionally, the assigned session IDs are returned as array of UUIDs.",
             "content": {
               "application/json": {
                 "schema": {

@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**GetB2bOptic**](SessionsApi.md#getb2boptic) | **GET** /sessions/{id}/b2boptic | Retrieves a session by ID represented as B2BOptic XML document.
 [**GetSession**](SessionsApi.md#getsession) | **GET** /sessions/{id} | Retrieves a session by ID.
 [**GetSessions**](SessionsApi.md#getsessions) | **GET** /sessions | Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as createdAfter, updatedAfter or to sort ascending or descending.
-[**ImportB2BOptic**](SessionsApi.md#importb2boptic) | **POST** /sessions/{id} | Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified first name, last name, or date of birth of the patient.
+[**ImportB2BOptic**](SessionsApi.md#importb2boptic) | **PUT** /sessions/{id} | Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.
 [**ImportB2BOpticAsNewSession**](SessionsApi.md#importb2bopticasnewsession) | **POST** /sessions | Imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
 
 
@@ -251,7 +251,7 @@ No authorization required
 
 > List&lt;string&gt; ImportB2BOptic (string id, string body, string state = null)
 
-Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified first name, last name, or date of birth of the patient.
+Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.
 
 ### Example
 
@@ -276,7 +276,7 @@ namespace Example
 
             try
             {
-                // Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified first name, last name, or date of birth of the patient.
+                // Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.
                 List<string> result = apiInstance.ImportB2BOptic(id, body, state);
                 Debug.WriteLine(result);
             }
@@ -316,7 +316,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-| **202** | The session has been successfully created/imported. Additionally, the assigned session IDs are returned as array of UUIDs. |  -  |
+| **202** | The session has been successfully created or updated. Additionally, the assigned session IDs are returned as array of UUIDs. |  -  |
 | **403** | Forbidden |  -  |
 | **404** | Session not found |  -  |
 | **500** | Internal server error |  -  |
