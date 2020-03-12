@@ -25,10 +25,10 @@ namespace Rodenstock.CNXT.Connector.Client.ConsoleApplication
             {
                 DateOfBirth = DateTime.ParseExact("1982-10-30", "yyyy-MM-dd", CultureInfo.InvariantCulture,
                                      DateTimeStyles.None)
-            }, new List<string>() { "lastName" }, new List<string>() { "session" });
+            }, new List<string>() { "lastName" }, new List<string>() { "session", "latestSessionId", "latestSessionUpdate" });
 
             // Query the next 25 patients sorted by lastName (ascending)
-            patientsResponse = patientsApi.GetPatients(25, patientsResponse.PageInfo.EndCursor, null, new List<string>() { "lastName" }, new List<string>() { "session" });
+            patientsResponse = patientsApi.GetPatients(25, patientsResponse.PageInfo.EndCursor, null, new List<string>() { "lastName" }, new List<string>() { "session", "latestSessionId", "latestSessionUpdate" });
 
             List<PatientResponse> patients = patientsResponse.Patients;
 

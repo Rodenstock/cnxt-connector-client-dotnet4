@@ -44,8 +44,6 @@ namespace CNXT.Connector.Client.Model
         /// <param name="state">state.</param>
         public SessionFilter(string externalId = default(string), DateTime? createdAfter = default(DateTime?), DateTime? updatedAfter = default(DateTime?), SessionState state = default(SessionState))
         {
-            this.CreatedAfter = createdAfter;
-            this.UpdatedAfter = updatedAfter;
             this.ExternalId = externalId;
             this.CreatedAfter = createdAfter;
             this.UpdatedAfter = updatedAfter;

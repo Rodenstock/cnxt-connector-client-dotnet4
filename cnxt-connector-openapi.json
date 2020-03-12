@@ -74,6 +74,7 @@
           "latestSessionUpdate": {
             "type": "string",
             "format": "date-time",
+            "nullable": true,
             "description": "Date of the latest session update"
           },
           "sessions": {

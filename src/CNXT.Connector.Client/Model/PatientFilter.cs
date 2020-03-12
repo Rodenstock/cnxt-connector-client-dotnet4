@@ -42,10 +42,6 @@ namespace CNXT.Connector.Client.Model
         /// <param name="updatedAfter">Used for finding patients whose date of modification is after the specified date time.</param>
         public PatientFilter(string search = default(string), string firstName = default(string), string lastName = default(string), DateTime? dateOfBirth = default(DateTime?), DateTime? sessionUpdatedAfter = default(DateTime?), DateTime? createdAfter = default(DateTime?), DateTime? updatedAfter = default(DateTime?))
         {
-            this.DateOfBirth = dateOfBirth;
-            this.SessionUpdatedAfter = sessionUpdatedAfter;
-            this.CreatedAfter = createdAfter;
-            this.UpdatedAfter = updatedAfter;
             this.Search = search;
             this.FirstName = firstName;
             this.LastName = lastName;

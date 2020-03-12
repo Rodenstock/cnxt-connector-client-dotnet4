@@ -88,7 +88,7 @@ namespace CNXT.Connector.Client.Model
         /// <param name="sessions">Assigned sessions of the patient.</param>
         /// <param name="createdAt">Date of creation of the patient.</param>
         /// <param name="updatedAt">Date of modification of the patient.</param>
-        public Patient(string id = default(string), string title = default(string), string firstName = default(string), string lastName = default(string), GenderEnum? gender = default(GenderEnum?), DateTime? dateOfBirth = default(DateTime?), string latestSessionId = default(string), DateTime latestSessionUpdate = default(DateTime), List<Session> sessions = default(List<Session>), DateTime createdAt = default(DateTime), DateTime updatedAt = default(DateTime))
+        public Patient(string id = default(string), string title = default(string), string firstName = default(string), string lastName = default(string), GenderEnum? gender = default(GenderEnum?), DateTime? dateOfBirth = default(DateTime?), string latestSessionId = default(string), DateTime? latestSessionUpdate = default(DateTime?), List<Session> sessions = default(List<Session>), DateTime createdAt = default(DateTime), DateTime updatedAt = default(DateTime))
         {
             // to ensure "id" is required (not null)
             if (id == null)
@@ -188,8 +188,8 @@ namespace CNXT.Connector.Client.Model
         /// Date of the latest session update
         /// </summary>
         /// <value>Date of the latest session update</value>
-        [DataMember(Name="latestSessionUpdate", EmitDefaultValue=false)]
-        public DateTime LatestSessionUpdate { get; set; }
+        [DataMember(Name="latestSessionUpdate", EmitDefaultValue=true)]
+        public DateTime? LatestSessionUpdate { get; set; }
 
         /// <summary>
         /// Assigned sessions of the patient
