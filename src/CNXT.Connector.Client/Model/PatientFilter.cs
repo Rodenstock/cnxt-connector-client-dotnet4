@@ -37,17 +37,16 @@ namespace CNXT.Connector.Client.Model
         /// <param name="firstName">First name which is used for finding patients by first name.</param>
         /// <param name="lastName">Last name which is used for finding patients by last name.</param>
         /// <param name="dateOfBirth">Date of birth which is used for finding patients by date of birth.</param>
-        /// <param name="createdAfter">Date of creation which is used for finding patients by date of creation.</param>
-        /// <param name="updatedAfter">Date of modification which is used for finding patients by date of modification.</param>
-        public PatientFilter(string search = default(string), string firstName = default(string), string lastName = default(string), DateTime? dateOfBirth = default(DateTime?), DateTime? createdAfter = default(DateTime?), DateTime? updatedAfter = default(DateTime?))
+        /// <param name="sessionUpdatedAfter">Used for finding patients whose sessions have been updated after the specified date time.</param>
+        /// <param name="createdAfter">Used for finding patients whose date of creation is after the specified date time.</param>
+        /// <param name="updatedAfter">Used for finding patients whose date of modification is after the specified date time.</param>
+        public PatientFilter(string search = default(string), string firstName = default(string), string lastName = default(string), DateTime? dateOfBirth = default(DateTime?), DateTime? sessionUpdatedAfter = default(DateTime?), DateTime? createdAfter = default(DateTime?), DateTime? updatedAfter = default(DateTime?))
         {
-            this.DateOfBirth = dateOfBirth;
-            this.CreatedAfter = createdAfter;
-            this.UpdatedAfter = updatedAfter;
             this.Search = search;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.DateOfBirth = dateOfBirth;
+            this.SessionUpdatedAfter = sessionUpdatedAfter;
             this.CreatedAfter = createdAfter;
             this.UpdatedAfter = updatedAfter;
         }
@@ -82,16 +81,23 @@ namespace CNXT.Connector.Client.Model
         public DateTime? DateOfBirth { get; set; }
 
         /// <summary>
-        /// Date of creation which is used for finding patients by date of creation
+        /// Used for finding patients whose sessions have been updated after the specified date time
         /// </summary>
-        /// <value>Date of creation which is used for finding patients by date of creation</value>
+        /// <value>Used for finding patients whose sessions have been updated after the specified date time</value>
+        [DataMember(Name="sessionUpdatedAfter", EmitDefaultValue=true)]
+        public DateTime? SessionUpdatedAfter { get; set; }
+
+        /// <summary>
+        /// Used for finding patients whose date of creation is after the specified date time
+        /// </summary>
+        /// <value>Used for finding patients whose date of creation is after the specified date time</value>
         [DataMember(Name="createdAfter", EmitDefaultValue=true)]
         public DateTime? CreatedAfter { get; set; }
 
         /// <summary>
-        /// Date of modification which is used for finding patients by date of modification
+        /// Used for finding patients whose date of modification is after the specified date time
         /// </summary>
-        /// <value>Date of modification which is used for finding patients by date of modification</value>
+        /// <value>Used for finding patients whose date of modification is after the specified date time</value>
         [DataMember(Name="updatedAfter", EmitDefaultValue=true)]
         public DateTime? UpdatedAfter { get; set; }
 
@@ -107,6 +113,7 @@ namespace CNXT.Connector.Client.Model
             sb.Append("  FirstName: ").Append(FirstName).Append("\n");
             sb.Append("  LastName: ").Append(LastName).Append("\n");
             sb.Append("  DateOfBirth: ").Append(DateOfBirth).Append("\n");
+            sb.Append("  SessionUpdatedAfter: ").Append(SessionUpdatedAfter).Append("\n");
             sb.Append("  CreatedAfter: ").Append(CreatedAfter).Append("\n");
             sb.Append("  UpdatedAfter: ").Append(UpdatedAfter).Append("\n");
             sb.Append("}\n");
@@ -164,6 +171,11 @@ namespace CNXT.Connector.Client.Model
                     this.DateOfBirth.Equals(input.DateOfBirth))
                 ) && 
                 (
+                    this.SessionUpdatedAfter == input.SessionUpdatedAfter ||
+                    (this.SessionUpdatedAfter != null &&
+                    this.SessionUpdatedAfter.Equals(input.SessionUpdatedAfter))
+                ) && 
+                (
                     this.CreatedAfter == input.CreatedAfter ||
                     (this.CreatedAfter != null &&
                     this.CreatedAfter.Equals(input.CreatedAfter))
@@ -192,6 +204,8 @@ namespace CNXT.Connector.Client.Model
                     hashCode = hashCode * 59 + this.LastName.GetHashCode();
                 if (this.DateOfBirth != null)
                     hashCode = hashCode * 59 + this.DateOfBirth.GetHashCode();
+                if (this.SessionUpdatedAfter != null)
+                    hashCode = hashCode * 59 + this.SessionUpdatedAfter.GetHashCode();
                 if (this.CreatedAfter != null)
                     hashCode = hashCode * 59 + this.CreatedAfter.GetHashCode();
                 if (this.UpdatedAfter != null)

@@ -33,7 +33,7 @@ namespace CNXT.Connector.Client.Api
         /// </remarks>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID of the patient</param>
-        /// <param name="include">List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional)</param>
+        /// <param name="include">List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional)</param>
         /// <returns>PatientResponse</returns>
         PatientResponse GetPatient (string id, List<string> include = default(List<string>));
 
@@ -45,11 +45,11 @@ namespace CNXT.Connector.Client.Api
         /// </remarks>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID of the patient</param>
-        /// <param name="include">List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional)</param>
+        /// <param name="include">List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional)</param>
         /// <returns>ApiResponse of PatientResponse</returns>
         ApiResponse<PatientResponse> GetPatientWithHttpInfo (string id, List<string> include = default(List<string>));
         /// <summary>
-        /// Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
+        /// Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
         /// </summary>
         /// <remarks>
         /// 
@@ -57,14 +57,14 @@ namespace CNXT.Connector.Client.Api
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="first">Fetch only the first certain number of patients of the set. The default and maximum value is set to 25 patients per request.</param>
         /// <param name="after">Fetch only patients in the set after (below) this cursor (exclusive). (optional)</param>
-        /// <param name="filter">Filter patients by field name e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) (optional)</param>
-        /// <param name="sort">List of parameters to sort patients by field name.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). (optional)</param>
-        /// <param name="include">List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional)</param>
+        /// <param name="filter">Filter patients by parameters e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) (optional)</param>
+        /// <param name="sort">List of parameters to sort patients by parameters.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). (optional)</param>
+        /// <param name="include">List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional)</param>
         /// <returns>PatientsResponse</returns>
         PatientsResponse GetPatients (int first, string after = default(string), PatientFilter filter = default(PatientFilter), List<string> sort = default(List<string>), List<string> include = default(List<string>));
 
         /// <summary>
-        /// Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
+        /// Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
         /// </summary>
         /// <remarks>
         /// 
@@ -72,9 +72,9 @@ namespace CNXT.Connector.Client.Api
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="first">Fetch only the first certain number of patients of the set. The default and maximum value is set to 25 patients per request.</param>
         /// <param name="after">Fetch only patients in the set after (below) this cursor (exclusive). (optional)</param>
-        /// <param name="filter">Filter patients by field name e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) (optional)</param>
-        /// <param name="sort">List of parameters to sort patients by field name.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). (optional)</param>
-        /// <param name="include">List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional)</param>
+        /// <param name="filter">Filter patients by parameters e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) (optional)</param>
+        /// <param name="sort">List of parameters to sort patients by parameters.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). (optional)</param>
+        /// <param name="include">List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional)</param>
         /// <returns>ApiResponse of PatientsResponse</returns>
         ApiResponse<PatientsResponse> GetPatientsWithHttpInfo (int first, string after = default(string), PatientFilter filter = default(PatientFilter), List<string> sort = default(List<string>), List<string> include = default(List<string>));
         #endregion Synchronous Operations
@@ -193,7 +193,7 @@ namespace CNXT.Connector.Client.Api
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID of the patient</param>
-        /// <param name="include">List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional)</param>
+        /// <param name="include">List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional)</param>
         /// <returns>PatientResponse</returns>
         public PatientResponse GetPatient (string id, List<string> include = default(List<string>))
         {
@@ -206,7 +206,7 @@ namespace CNXT.Connector.Client.Api
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID of the patient</param>
-        /// <param name="include">List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional)</param>
+        /// <param name="include">List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional)</param>
         /// <returns>ApiResponse of PatientResponse</returns>
         public ApiResponse<PatientResponse> GetPatientWithHttpInfo (string id, List<string> include = default(List<string>))
         {
@@ -258,14 +258,14 @@ namespace CNXT.Connector.Client.Api
         }
 
         /// <summary>
-        /// Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending. 
+        /// Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending. 
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="first">Fetch only the first certain number of patients of the set. The default and maximum value is set to 25 patients per request.</param>
         /// <param name="after">Fetch only patients in the set after (below) this cursor (exclusive). (optional)</param>
-        /// <param name="filter">Filter patients by field name e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) (optional)</param>
-        /// <param name="sort">List of parameters to sort patients by field name.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). (optional)</param>
-        /// <param name="include">List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional)</param>
+        /// <param name="filter">Filter patients by parameters e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) (optional)</param>
+        /// <param name="sort">List of parameters to sort patients by parameters.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). (optional)</param>
+        /// <param name="include">List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional)</param>
         /// <returns>PatientsResponse</returns>
         public PatientsResponse GetPatients (int first, string after = default(string), PatientFilter filter = default(PatientFilter), List<string> sort = default(List<string>), List<string> include = default(List<string>))
         {
@@ -274,14 +274,14 @@ namespace CNXT.Connector.Client.Api
         }
 
         /// <summary>
-        /// Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending. 
+        /// Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending. 
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="first">Fetch only the first certain number of patients of the set. The default and maximum value is set to 25 patients per request.</param>
         /// <param name="after">Fetch only patients in the set after (below) this cursor (exclusive). (optional)</param>
-        /// <param name="filter">Filter patients by field name e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) (optional)</param>
-        /// <param name="sort">List of parameters to sort patients by field name.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). (optional)</param>
-        /// <param name="include">List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional)</param>
+        /// <param name="filter">Filter patients by parameters e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) (optional)</param>
+        /// <param name="sort">List of parameters to sort patients by parameters.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). (optional)</param>
+        /// <param name="include">List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional)</param>
         /// <returns>ApiResponse of PatientsResponse</returns>
         public ApiResponse<PatientsResponse> GetPatientsWithHttpInfo (int first, string after = default(string), PatientFilter filter = default(PatientFilter), List<string> sort = default(List<string>), List<string> include = default(List<string>))
         {

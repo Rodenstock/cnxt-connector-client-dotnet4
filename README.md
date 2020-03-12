@@ -81,7 +81,7 @@ namespace Example
             Configuration.Default.BasePath = "http://localhost/api";
             var apiInstance = new PatientsApi(Configuration.Default);
             var id = id_example;  // string | ID of the patient
-            var include = new List<string>(); // List<string> | List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional) 
+            var include = new List<string>(); // List<string> | List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional) 
 
             try
             {
@@ -108,11 +108,11 @@ All URIs are relative to *http://localhost/api*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *PatientsApi* | [**GetPatient**](docs/PatientsApi.md#getpatient) | **GET** /patients/{id} | Retrieves a patient by ID.
-*PatientsApi* | [**GetPatients**](docs/PatientsApi.md#getpatients) | **GET** /patients | Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
+*PatientsApi* | [**GetPatients**](docs/PatientsApi.md#getpatients) | **GET** /patients | Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
 *SessionsApi* | [**GetB2bOptic**](docs/SessionsApi.md#getb2boptic) | **GET** /sessions/{id}/b2boptic | Retrieves a session by ID represented as B2BOptic XML document.
 *SessionsApi* | [**GetSession**](docs/SessionsApi.md#getsession) | **GET** /sessions/{id} | Retrieves a session by ID.
-*SessionsApi* | [**GetSessions**](docs/SessionsApi.md#getsessions) | **GET** /sessions | Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as createdAfter, updatedAfter or to sort ascending or descending.
-*SessionsApi* | [**ImportB2BOptic**](docs/SessionsApi.md#importb2boptic) | **POST** /sessions/{id} | Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified first name, last name, or date of birth of the patient.
+*SessionsApi* | [**GetSessions**](docs/SessionsApi.md#getsessions) | **GET** /sessions | Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as externalId, createdAfter, updatedAfter or to sort ascending or descending.
+*SessionsApi* | [**ImportB2BOptic**](docs/SessionsApi.md#importb2boptic) | **PUT** /sessions/{id} | Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.
 *SessionsApi* | [**ImportB2BOpticAsNewSession**](docs/SessionsApi.md#importb2bopticasnewsession) | **POST** /sessions | Imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
 
 

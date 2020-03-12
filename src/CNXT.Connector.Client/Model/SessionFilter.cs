@@ -38,29 +38,36 @@ namespace CNXT.Connector.Client.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SessionFilter" /> class.
         /// </summary>
-        /// <param name="createdAfter">Date of creation which is used for finding sessions by date of creation.</param>
-        /// <param name="updatedAfter">Date of modification which is used for finding sessions by date of modification.</param>
+        /// <param name="externalId">Used for finding sessions by external ID, which is assigned to the session in a 3rd party application.</param>
+        /// <param name="createdAfter">Used for finding sessions whose date of creation is after the specified date time.</param>
+        /// <param name="updatedAfter">Used for finding sessions whose date of modification is after the specified date time.</param>
         /// <param name="state">state.</param>
-        public SessionFilter(DateTime? createdAfter = default(DateTime?), DateTime? updatedAfter = default(DateTime?), SessionState state = default(SessionState))
+        public SessionFilter(string externalId = default(string), DateTime? createdAfter = default(DateTime?), DateTime? updatedAfter = default(DateTime?), SessionState state = default(SessionState))
         {
-            this.CreatedAfter = createdAfter;
-            this.UpdatedAfter = updatedAfter;
+            this.ExternalId = externalId;
             this.CreatedAfter = createdAfter;
             this.UpdatedAfter = updatedAfter;
             this.State = state;
         }
         
         /// <summary>
-        /// Date of creation which is used for finding sessions by date of creation
+        /// Used for finding sessions by external ID, which is assigned to the session in a 3rd party application
         /// </summary>
-        /// <value>Date of creation which is used for finding sessions by date of creation</value>
+        /// <value>Used for finding sessions by external ID, which is assigned to the session in a 3rd party application</value>
+        [DataMember(Name="externalId", EmitDefaultValue=false)]
+        public string ExternalId { get; set; }
+
+        /// <summary>
+        /// Used for finding sessions whose date of creation is after the specified date time
+        /// </summary>
+        /// <value>Used for finding sessions whose date of creation is after the specified date time</value>
         [DataMember(Name="createdAfter", EmitDefaultValue=true)]
         public DateTime? CreatedAfter { get; set; }
 
         /// <summary>
-        /// Date of modification which is used for finding sessions by date of modification
+        /// Used for finding sessions whose date of modification is after the specified date time
         /// </summary>
-        /// <value>Date of modification which is used for finding sessions by date of modification</value>
+        /// <value>Used for finding sessions whose date of modification is after the specified date time</value>
         [DataMember(Name="updatedAfter", EmitDefaultValue=true)]
         public DateTime? UpdatedAfter { get; set; }
 
@@ -73,6 +80,7 @@ namespace CNXT.Connector.Client.Model
         {
             var sb = new StringBuilder();
             sb.Append("class SessionFilter {\n");
+            sb.Append("  ExternalId: ").Append(ExternalId).Append("\n");
             sb.Append("  CreatedAfter: ").Append(CreatedAfter).Append("\n");
             sb.Append("  UpdatedAfter: ").Append(UpdatedAfter).Append("\n");
             sb.Append("  State: ").Append(State).Append("\n");
@@ -111,6 +119,11 @@ namespace CNXT.Connector.Client.Model
 
             return 
                 (
+                    this.ExternalId == input.ExternalId ||
+                    (this.ExternalId != null &&
+                    this.ExternalId.Equals(input.ExternalId))
+                ) && 
+                (
                     this.CreatedAfter == input.CreatedAfter ||
                     (this.CreatedAfter != null &&
                     this.CreatedAfter.Equals(input.CreatedAfter))
@@ -136,6 +149,8 @@ namespace CNXT.Connector.Client.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.ExternalId != null)
+                    hashCode = hashCode * 59 + this.ExternalId.GetHashCode();
                 if (this.CreatedAfter != null)
                     hashCode = hashCode * 59 + this.CreatedAfter.GetHashCode();
                 if (this.UpdatedAfter != null)

@@ -71,7 +71,7 @@ namespace CNXT.Connector.Client.Api
         /// <returns>ApiResponse of SessionResponse</returns>
         ApiResponse<SessionResponse> GetSessionWithHttpInfo (string id, List<string> include = default(List<string>));
         /// <summary>
-        /// Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as createdAfter, updatedAfter or to sort ascending or descending.
+        /// Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as externalId, createdAfter, updatedAfter or to sort ascending or descending.
         /// </summary>
         /// <remarks>
         /// 
@@ -79,14 +79,14 @@ namespace CNXT.Connector.Client.Api
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="first">Read the first n sessions of the set. The default and maximum value is set to 25 sessions per request.</param>
         /// <param name="after">Read all sessions in the set after (below) this cursor. (optional)</param>
-        /// <param name="filter">Filter session by field name e.g. state or by createdAfter for filtering sessions which are created after a specified date or by updatedAfter for filtering sessions which are updated after a specified date.  (Supported values: createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
-        /// <param name="sort">List of parameters to sort sessions by field name.  (Supported values: createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g. (-createdAt, -updatedAt). (optional)</param>
+        /// <param name="filter">Filter session by parameters e.g. externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.  (Supported values: externalId, createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="sort">List of parameters to sort sessions by parameter.  (Supported values: createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g. (-createdAt, -updatedAt). (optional)</param>
         /// <param name="include">List of related resources for including relationships directly into session such as Patient.  (Supported values: patient) (optional)</param>
         /// <returns>SessionsResponse</returns>
         SessionsResponse GetSessions (int first, string after = default(string), SessionFilter filter = default(SessionFilter), List<string> sort = default(List<string>), List<string> include = default(List<string>));
 
         /// <summary>
-        /// Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as createdAfter, updatedAfter or to sort ascending or descending.
+        /// Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as externalId, createdAfter, updatedAfter or to sort ascending or descending.
         /// </summary>
         /// <remarks>
         /// 
@@ -94,8 +94,8 @@ namespace CNXT.Connector.Client.Api
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="first">Read the first n sessions of the set. The default and maximum value is set to 25 sessions per request.</param>
         /// <param name="after">Read all sessions in the set after (below) this cursor. (optional)</param>
-        /// <param name="filter">Filter session by field name e.g. state or by createdAfter for filtering sessions which are created after a specified date or by updatedAfter for filtering sessions which are updated after a specified date.  (Supported values: createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
-        /// <param name="sort">List of parameters to sort sessions by field name.  (Supported values: createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g. (-createdAt, -updatedAt). (optional)</param>
+        /// <param name="filter">Filter session by parameters e.g. externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.  (Supported values: externalId, createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="sort">List of parameters to sort sessions by parameter.  (Supported values: createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g. (-createdAt, -updatedAt). (optional)</param>
         /// <param name="include">List of related resources for including relationships directly into session such as Patient.  (Supported values: patient) (optional)</param>
         /// <returns>ApiResponse of SessionsResponse</returns>
         ApiResponse<SessionsResponse> GetSessionsWithHttpInfo (int first, string after = default(string), SessionFilter filter = default(SessionFilter), List<string> sort = default(List<string>), List<string> include = default(List<string>));
@@ -108,7 +108,7 @@ namespace CNXT.Connector.Client.Api
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID of the session that needs to import data from B2BOptic XML document.</param>
         /// <param name="body"></param>
-        /// <param name="state">Session (order) state of the session (order) that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="state">State of the session that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
         /// <returns>List&lt;string&gt;</returns>
         List<string> ImportB2BOptic (string id, string body, string state = default(string));
 
@@ -121,7 +121,7 @@ namespace CNXT.Connector.Client.Api
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID of the session that needs to import data from B2BOptic XML document.</param>
         /// <param name="body"></param>
-        /// <param name="state">Session (order) state of the session (order) that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="state">State of the session that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
         ApiResponse<List<string>> ImportB2BOpticWithHttpInfo (string id, string body, string state = default(string));
         /// <summary>
@@ -132,7 +132,7 @@ namespace CNXT.Connector.Client.Api
         /// </remarks>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
-        /// <param name="state">Session (order) state of the session (order) that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="state">State of the session that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
         /// <returns>List&lt;string&gt;</returns>
         List<string> ImportB2BOpticAsNewSession (string body, string state = default(string));
 
@@ -144,7 +144,7 @@ namespace CNXT.Connector.Client.Api
         /// </remarks>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
-        /// <param name="state">Session (order) state of the session (order) that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="state">State of the session that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
         ApiResponse<List<string>> ImportB2BOpticAsNewSessionWithHttpInfo (string body, string state = default(string));
         #endregion Synchronous Operations
@@ -393,13 +393,13 @@ namespace CNXT.Connector.Client.Api
         }
 
         /// <summary>
-        /// Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as createdAfter, updatedAfter or to sort ascending or descending. 
+        /// Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as externalId, createdAfter, updatedAfter or to sort ascending or descending. 
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="first">Read the first n sessions of the set. The default and maximum value is set to 25 sessions per request.</param>
         /// <param name="after">Read all sessions in the set after (below) this cursor. (optional)</param>
-        /// <param name="filter">Filter session by field name e.g. state or by createdAfter for filtering sessions which are created after a specified date or by updatedAfter for filtering sessions which are updated after a specified date.  (Supported values: createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
-        /// <param name="sort">List of parameters to sort sessions by field name.  (Supported values: createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g. (-createdAt, -updatedAt). (optional)</param>
+        /// <param name="filter">Filter session by parameters e.g. externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.  (Supported values: externalId, createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="sort">List of parameters to sort sessions by parameter.  (Supported values: createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g. (-createdAt, -updatedAt). (optional)</param>
         /// <param name="include">List of related resources for including relationships directly into session such as Patient.  (Supported values: patient) (optional)</param>
         /// <returns>SessionsResponse</returns>
         public SessionsResponse GetSessions (int first, string after = default(string), SessionFilter filter = default(SessionFilter), List<string> sort = default(List<string>), List<string> include = default(List<string>))
@@ -409,13 +409,13 @@ namespace CNXT.Connector.Client.Api
         }
 
         /// <summary>
-        /// Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as createdAfter, updatedAfter or to sort ascending or descending. 
+        /// Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as externalId, createdAfter, updatedAfter or to sort ascending or descending. 
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="first">Read the first n sessions of the set. The default and maximum value is set to 25 sessions per request.</param>
         /// <param name="after">Read all sessions in the set after (below) this cursor. (optional)</param>
-        /// <param name="filter">Filter session by field name e.g. state or by createdAfter for filtering sessions which are created after a specified date or by updatedAfter for filtering sessions which are updated after a specified date.  (Supported values: createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
-        /// <param name="sort">List of parameters to sort sessions by field name.  (Supported values: createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g. (-createdAt, -updatedAt). (optional)</param>
+        /// <param name="filter">Filter session by parameters e.g. externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.  (Supported values: externalId, createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="sort">List of parameters to sort sessions by parameter.  (Supported values: createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g. (-createdAt, -updatedAt). (optional)</param>
         /// <param name="include">List of related resources for including relationships directly into session such as Patient.  (Supported values: patient) (optional)</param>
         /// <returns>ApiResponse of SessionsResponse</returns>
         public ApiResponse<SessionsResponse> GetSessionsWithHttpInfo (int first, string after = default(string), SessionFilter filter = default(SessionFilter), List<string> sort = default(List<string>), List<string> include = default(List<string>))
@@ -497,7 +497,7 @@ namespace CNXT.Connector.Client.Api
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID of the session that needs to import data from B2BOptic XML document.</param>
         /// <param name="body"></param>
-        /// <param name="state">Session (order) state of the session (order) that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="state">State of the session that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
         /// <returns>List&lt;string&gt;</returns>
         public List<string> ImportB2BOptic (string id, string body, string state = default(string))
         {
@@ -511,7 +511,7 @@ namespace CNXT.Connector.Client.Api
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="id">ID of the session that needs to import data from B2BOptic XML document.</param>
         /// <param name="body"></param>
-        /// <param name="state">Session (order) state of the session (order) that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="state">State of the session that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
         public ApiResponse<List<string>> ImportB2BOpticWithHttpInfo (string id, string body, string state = default(string))
         {
@@ -584,7 +584,7 @@ namespace CNXT.Connector.Client.Api
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
-        /// <param name="state">Session (order) state of the session (order) that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="state">State of the session that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
         /// <returns>List&lt;string&gt;</returns>
         public List<string> ImportB2BOpticAsNewSession (string body, string state = default(string))
         {
@@ -597,7 +597,7 @@ namespace CNXT.Connector.Client.Api
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"></param>
-        /// <param name="state">Session (order) state of the session (order) that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
+        /// <param name="state">State of the session that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional)</param>
         /// <returns>ApiResponse of List&lt;string&gt;</returns>
         public ApiResponse<List<string>> ImportB2BOpticAsNewSessionWithHttpInfo (string body, string state = default(string))
         {

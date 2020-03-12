@@ -25,9 +25,9 @@ using OpenAPIDateConverter = CNXT.Connector.Client.Client.OpenAPIDateConverter;
 namespace CNXT.Connector.Client.Model
 {
     /// <summary>
-    /// State of the session or order
+    /// State of the session
     /// </summary>
-    /// <value>State of the session or order</value>
+    /// <value>State of the session</value>
     
     [JsonConverter(typeof(StringEnumConverter))]
     

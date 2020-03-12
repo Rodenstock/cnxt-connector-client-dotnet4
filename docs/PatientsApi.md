@@ -5,7 +5,7 @@ All URIs are relative to *http://localhost/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetPatient**](PatientsApi.md#getpatient) | **GET** /patients/{id} | Retrieves a patient by ID.
-[**GetPatients**](PatientsApi.md#getpatients) | **GET** /patients | Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
+[**GetPatients**](PatientsApi.md#getpatients) | **GET** /patients | Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
 
 
 
@@ -33,7 +33,7 @@ namespace Example
             Configuration.Default.BasePath = "http://localhost/api";
             var apiInstance = new PatientsApi(Configuration.Default);
             var id = id_example;  // string | ID of the patient
-            var include = new List<string>(); // List<string> | List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional) 
+            var include = new List<string>(); // List<string> | List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional) 
 
             try
             {
@@ -58,7 +58,7 @@ namespace Example
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **string**| ID of the patient | 
- **include** | [**List&lt;string&gt;**](string.md)| List of related resources for including relationships directly into patient such as Session   (Supported values: session) | [optional] 
+ **include** | [**List&lt;string&gt;**](string.md)| List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) | [optional] 
 
 ### Return type
 
@@ -90,7 +90,7 @@ No authorization required
 
 > PatientsResponse GetPatients (int first, string after = null, PatientFilter filter = null, List<string> sort = null, List<string> include = null)
 
-Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
+Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
 
 ### Example
 
@@ -111,13 +111,13 @@ namespace Example
             var apiInstance = new PatientsApi(Configuration.Default);
             var first = 25;  // int | Fetch only the first certain number of patients of the set. The default and maximum value is set to 25 patients per request.
             var after = after_example;  // string | Fetch only patients in the set after (below) this cursor (exclusive). (optional) 
-            var filter = new PatientFilter(); // PatientFilter | Filter patients by field name e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) (optional) 
-            var sort = new List<string>(); // List<string> | List of parameters to sort patients by field name.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a '-' as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). (optional) 
-            var include = new List<string>(); // List<string> | List of related resources for including relationships directly into patient such as Session   (Supported values: session) (optional) 
+            var filter = new PatientFilter(); // PatientFilter | Filter patients by parameters e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) (optional) 
+            var sort = new List<string>(); // List<string> | List of parameters to sort patients by parameters.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a '-' as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). (optional) 
+            var include = new List<string>(); // List<string> | List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) (optional) 
 
             try
             {
-                // Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by field names such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
+                // Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
                 PatientsResponse result = apiInstance.GetPatients(first, after, filter, sort, include);
                 Debug.WriteLine(result);
             }
@@ -139,9 +139,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **first** | **int**| Fetch only the first certain number of patients of the set. The default and maximum value is set to 25 patients per request. | 
  **after** | **string**| Fetch only patients in the set after (below) this cursor (exclusive). | [optional] 
- **filter** | [**PatientFilter**](PatientFilter.md)| Filter patients by field name e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) | [optional] 
- **sort** | [**List&lt;string&gt;**](string.md)| List of parameters to sort patients by field name.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). | [optional] 
- **include** | [**List&lt;string&gt;**](string.md)| List of related resources for including relationships directly into patient such as Session   (Supported values: session) | [optional] 
+ **filter** | [**PatientFilter**](PatientFilter.md)| Filter patients by parameters e.g. lastName for filtering patients by their last name.  (Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter) | [optional] 
+ **sort** | [**List&lt;string&gt;**](string.md)| List of parameters to sort patients by parameters.  (Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt). | [optional] 
+ **include** | [**List&lt;string&gt;**](string.md)| List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate   (Supported values: session, latestSessionId, latestSessionUpdate) | [optional] 
 
 ### Return type
 
