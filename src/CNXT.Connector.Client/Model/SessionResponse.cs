@@ -84,6 +84,7 @@ namespace CNXT.Connector.Client.Model
         /// Initializes a new instance of the <see cref="SessionResponse" /> class.
         /// </summary>
         /// <param name="id">ID of the session (required).</param>
+        /// <param name="externalId">External ID of the session, which is assigned to the session in a 3rd party application.</param>
         /// <param name="name">Name of the session.</param>
         /// <param name="notes">Notes of the session.</param>
         /// <param name="state">State of the session. (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED).</param>
@@ -93,7 +94,7 @@ namespace CNXT.Connector.Client.Model
         /// <param name="createdAt">Date of creation of the session.</param>
         /// <param name="updatedAt">Date of modification of the session.</param>
         /// <param name="links">links.</param>
-        public SessionResponse(string id = default(string), string name = default(string), string notes = default(string), StateEnum? state = default(StateEnum?), string patientId = default(string), Patient patient = default(Patient), B2BOptic b2bOptic = default(B2BOptic), DateTime createdAt = default(DateTime), DateTime updatedAt = default(DateTime), SessionLink links = default(SessionLink))
+        public SessionResponse(string id = default(string), string externalId = default(string), string name = default(string), string notes = default(string), StateEnum? state = default(StateEnum?), string patientId = default(string), Patient patient = default(Patient), B2BOptic b2bOptic = default(B2BOptic), DateTime createdAt = default(DateTime), DateTime updatedAt = default(DateTime), SessionLink links = default(SessionLink))
         {
             // to ensure "id" is required (not null)
             if (id == null)
@@ -105,6 +106,7 @@ namespace CNXT.Connector.Client.Model
                 this.Id = id;
             }
             
+            this.ExternalId = externalId;
             this.Name = name;
             this.Notes = notes;
             this.State = state;
@@ -122,6 +124,13 @@ namespace CNXT.Connector.Client.Model
         /// <value>ID of the session</value>
         [DataMember(Name="id", EmitDefaultValue=false)]
         public string Id { get; set; }
+
+        /// <summary>
+        /// External ID of the session, which is assigned to the session in a 3rd party application
+        /// </summary>
+        /// <value>External ID of the session, which is assigned to the session in a 3rd party application</value>
+        [DataMember(Name="externalId", EmitDefaultValue=false)]
+        public string ExternalId { get; set; }
 
         /// <summary>
         /// Name of the session
@@ -186,6 +195,7 @@ namespace CNXT.Connector.Client.Model
             var sb = new StringBuilder();
             sb.Append("class SessionResponse {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  ExternalId: ").Append(ExternalId).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Notes: ").Append(Notes).Append("\n");
             sb.Append("  State: ").Append(State).Append("\n");
@@ -233,6 +243,11 @@ namespace CNXT.Connector.Client.Model
                     this.Id == input.Id ||
                     (this.Id != null &&
                     this.Id.Equals(input.Id))
+                ) && 
+                (
+                    this.ExternalId == input.ExternalId ||
+                    (this.ExternalId != null &&
+                    this.ExternalId.Equals(input.ExternalId))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -292,6 +307,8 @@ namespace CNXT.Connector.Client.Model
                 int hashCode = 41;
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.ExternalId != null)
+                    hashCode = hashCode * 59 + this.ExternalId.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.Notes != null)

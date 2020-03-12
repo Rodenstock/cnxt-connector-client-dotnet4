@@ -9,8 +9,9 @@ Name | Type | Description | Notes
 **FirstName** | **string** | First name which is used for finding patients by first name | [optional] 
 **LastName** | **string** | Last name which is used for finding patients by last name | [optional] 
 **DateOfBirth** | **DateTime?** | Date of birth which is used for finding patients by date of birth | [optional] 
-**CreatedAfter** | **DateTime?** | Date of creation which is used for finding patients by date of creation | [optional] 
-**UpdatedAfter** | **DateTime?** | Date of modification which is used for finding patients by date of modification | [optional] 
+**SessionUpdatedAfter** | **DateTime?** | Used for finding patients whose sessions have been updated after the specified date time | [optional] 
+**CreatedAfter** | **DateTime?** | Used for finding patients whose date of creation is after the specified date time | [optional] 
+**UpdatedAfter** | **DateTime?** | Used for finding patients whose date of modification is after the specified date time | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to API list]](../README.md#documentation-for-api-endpoints)

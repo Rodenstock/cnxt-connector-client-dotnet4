@@ -5,8 +5,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**CreatedAfter** | **DateTime?** | Date of creation which is used for finding sessions by date of creation | [optional] 
-**UpdatedAfter** | **DateTime?** | Date of modification which is used for finding sessions by date of modification | [optional] 
+**ExternalId** | **string** | Used for finding sessions by external ID, which is assigned to the session in a 3rd party application | [optional] 
+**CreatedAfter** | **DateTime?** | Used for finding sessions whose date of creation is after the specified date time | [optional] 
+**UpdatedAfter** | **DateTime?** | Used for finding sessions whose date of modification is after the specified date time | [optional] 
 **State** | **SessionState** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models)

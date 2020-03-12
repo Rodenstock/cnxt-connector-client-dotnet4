@@ -148,20 +148,24 @@ components:
           format: "date"
           nullable: true
           description: Date of birth which is used for finding patients by date of birth
+        sessionUpdatedAfter:
+          type: string
+          format: "date-time"
+          nullable: true
+          description: >-
+            Used for finding patients whose sessions have been updated after the specified date time
         createdAfter:
           type: string
           format: "date-time"
           nullable: true
           description: >-
-            Date of creation which is used for finding patients by date of
-            creation
+            Used for finding patients whose date of creation is after the specified date time
         updatedAfter:
           type: string
           format: "date-time"
           nullable: true
           description: >-
-            Date of modification which is used for finding patients by date of
-            modification
+            Used for finding patients whose date of modification is after the specified date time
     SessionLink:
       type: object
       description: Represents session related pagination links
@@ -235,7 +239,7 @@ components:
       required:
         - self
     SessionState:
-      description: State of the session or order
+      description: State of the session
       type: string
       enum:
         - CLOSED
@@ -247,20 +251,21 @@ components:
       type: object
       description: Represents a patient filter for querying sessions.
       properties:
+        externalId:
+          type: string
+          description: Used for finding sessions by external ID, which is assigned to the session in a 3rd party application
         createdAfter:
           type: string
           format: "date-time"
           nullable: true
           description: >-
-            Date of creation which is used for finding sessions by date of
-            creation
+            Used for finding sessions whose date of creation is after the specified date time
         updatedAfter:
           type: string
           format: "date-time"
           nullable: true
           description: >-
-            Date of modification which is used for finding sessions by date of
-            modification
+            Used for finding sessions whose date of modification is after the specified date time
         state:
           $ref: '#/components/schemas/SessionState'
           description: State of the session
@@ -276,11 +281,14 @@ components:
           description: Represents the B2BOptic related data as JSON
     Session:
       type: object
-      description: Represents a session or an order
+      description: Represents a session
       properties:
         id:
           type: string
           description: ID of the session
+        externalId:
+          type: string
+          description: External ID of the session, which is assigned to the session in a 3rd party application
         name:
           type: string
           description: Name of the session
@@ -355,7 +363,7 @@ paths:
         - name: include
           required: false
           in: query
-          description: "List of related resources for including relationships directly into patient such as Session \r\n(Supported values: session)"
+          description: "List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate \r\n(Supported values: session, latestSessionId, latestSessionUpdate)"
           style: form
           explode: false
           schema:
@@ -380,7 +388,7 @@ paths:
       operationId: getPatients
       summary: >-
         Retrieves a list of patients. The endpoint implements pagination by
-        using links. Additionally, it is possible to filter by field names such
+        using links. Additionally, it is possible to filter by parameters such
         as lastName, firstName, createdAfter, updatedAfter or to sort ascending
         or descending.
       parameters:
@@ -407,7 +415,7 @@ paths:
         - name: filter
           required: false
           in: query
-          description: "Filter patients by field name e.g. lastName for filtering patients by their last name.\r\n(Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter)"
+          description: "Filter patients by parameters e.g. lastName for filtering patients by their last name.\r\n(Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter)"
           schema:
             $ref: '#/components/schemas/PatientFilter'
           style: deepObject
@@ -415,7 +423,7 @@ paths:
         - name: sort
           required: false
           in: query
-          description: "List of parameters to sort patients by field name.\r\n(Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).\r\n\r\nTo sort descending add a '-' as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt)."
+          description: "List of parameters to sort patients by parameters.\r\n(Supported values: lastName, firstName, latestSessionUpdate, createdAt, updatedAt).\r\n\r\nTo sort descending add a '-' as prefix e.g (-lastName, -firstName, -latestSessionUpdate, -createdAt, -updatedAt)."
           style: form
           explode: false
           schema:
@@ -425,7 +433,7 @@ paths:
         - name: include
           required: false
           in: query
-          description: "List of related resources for including relationships directly into patient such as Session \r\n(Supported values: session)"
+          description: "List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate \r\n(Supported values: session, latestSessionId, latestSessionUpdate)"
           style: form
           explode: false
           schema:
@@ -500,7 +508,7 @@ paths:
         - name: state
           required: false
           in: query
-          description: "Session (order) state of the session (order) that needs to import data from B2BOptic XML document.\r\n(Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
+          description: "State of the session that needs to import data from B2BOptic XML document.\r\n(Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
           schema:
             type: string
       requestBody:
@@ -538,8 +546,8 @@ paths:
       operationId: getSessions
       summary: >-
         Retrieves a list of sessions. This endpoint implements pagination by
-        using links. Additionally, it is possible to filter by field names such
-        as createdAfter, updatedAfter or to sort ascending or descending.
+        using links. Additionally, it is possible to filter by parameters such
+        as externalId, createdAfter, updatedAfter or to sort ascending or descending.
       parameters:
         - name: first
           required: true
@@ -562,7 +570,7 @@ paths:
         - name: filter
           required: false
           in: query
-          description: "Filter session by field name e.g. state or by createdAfter for filtering sessions which are created after a specified date or by updatedAfter for filtering sessions which are updated after a specified date.\r\n(Supported values: createdAfter, updatedAfter, state).\r\n\r\nA state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
+          description: "Filter session by parameters e.g. externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.\r\n(Supported values: externalId, createdAfter, updatedAfter, state).\r\n\r\nA state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
           schema:
             $ref: '#/components/schemas/SessionFilter'
           style: deepObject
@@ -570,7 +578,7 @@ paths:
         - name: sort
           required: false
           in: query
-          description: "List of parameters to sort sessions by field name.\r\n(Supported values: createdAt, updatedAt).\r\n\r\nTo sort descending add a '-' as prefix e.g. (-createdAt, -updatedAt)."
+          description: "List of parameters to sort sessions by parameter.\r\n(Supported values: createdAt, updatedAt).\r\n\r\nTo sort descending add a '-' as prefix e.g. (-createdAt, -updatedAt)."
           style: form
           explode: false
           schema:
@@ -611,7 +619,7 @@ paths:
         - name: state
           required: false
           in: query
-          description: "Session (order) state of the session (order) that needs to import data from B2BOptic XML document.\r\n(Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
+          description: "State of the session that needs to import data from B2BOptic XML document.\r\n(Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
           schema:
             type: string
       requestBody:
