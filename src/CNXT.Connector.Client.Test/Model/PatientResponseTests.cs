@@ -114,6 +114,22 @@ namespace CNXT.Connector.Client.Test
             // TODO unit test for the property 'DateOfBirth'
         }
         /// <summary>
+        /// Test the property 'LatestSessionId'
+        /// </summary>
+        [Test]
+        public void LatestSessionIdTest()
+        {
+            // TODO unit test for the property 'LatestSessionId'
+        }
+        /// <summary>
+        /// Test the property 'LatestSessionUpdate'
+        /// </summary>
+        [Test]
+        public void LatestSessionUpdateTest()
+        {
+            // TODO unit test for the property 'LatestSessionUpdate'
+        }
+        /// <summary>
         /// Test the property 'Sessions'
         /// </summary>
         [Test]

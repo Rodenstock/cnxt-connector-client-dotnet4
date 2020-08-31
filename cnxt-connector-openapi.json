@@ -327,11 +327,15 @@
       },
       "SessionFilter": {
         "type": "object",
-        "description": "Represents a patient filter for querying sessions.",
+        "description": "Represents a session filter for querying sessions.",
         "properties": {
           "externalId": {
             "type": "string",
             "description": "Used for finding sessions by external ID, which is assigned to the session in a 3rd party application"
+          },
+          "patientId": {
+            "type": "string",
+            "description": "Used for finding sessions by patient ID"
           },
           "createdAfter": {
             "type": "string",
@@ -725,7 +729,7 @@
     "/sessions": {
       "get": {
         "operationId": "getSessions",
-        "summary": "Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as externalId, createdAfter, updatedAfter or to sort ascending or descending.",
+        "summary": "Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as patientId, externalId, createdAfter, updatedAfter or to sort ascending or descending.",
         "parameters": [
           {
             "name": "first",
@@ -753,7 +757,7 @@
             "name": "filter",
             "required": false,
             "in": "query",
-            "description": "Filter session by parameters e.g. externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.\r\n(Supported values: externalId, createdAfter, updatedAfter, state).\r\n\r\nA state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED)",
+            "description": "Filter session by parameters e.g. patientId, externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.\r\n(Supported values: patientId, externalId, createdAfter, updatedAfter, state).\r\n\r\nA state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED)",
             "schema": {
               "$ref": "#/components/schemas/SessionFilter"
             },

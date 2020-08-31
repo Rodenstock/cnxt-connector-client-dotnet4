@@ -98,6 +98,14 @@ namespace CNXT.Connector.Client.Test
             // TODO unit test for the property 'DateOfBirth'
         }
         /// <summary>
+        /// Test the property 'SessionUpdatedAfter'
+        /// </summary>
+        [Test]
+        public void SessionUpdatedAfterTest()
+        {
+            // TODO unit test for the property 'SessionUpdatedAfter'
+        }
+        /// <summary>
         /// Test the property 'CreatedAfter'
         /// </summary>
         [Test]

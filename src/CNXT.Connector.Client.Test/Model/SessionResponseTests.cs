@@ -74,6 +74,14 @@ namespace CNXT.Connector.Client.Test
             // TODO unit test for the property 'Id'
         }
         /// <summary>
+        /// Test the property 'ExternalId'
+        /// </summary>
+        [Test]
+        public void ExternalIdTest()
+        {
+            // TODO unit test for the property 'ExternalId'
+        }
+        /// <summary>
         /// Test the property 'Name'
         /// </summary>
         [Test]

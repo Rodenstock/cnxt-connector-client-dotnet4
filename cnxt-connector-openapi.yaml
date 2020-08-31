@@ -52,7 +52,7 @@ components:
             Unknown)
         dateOfBirth:
           type: string
-          format: "date"
+          format: 'date'
           nullable: true
           description: Date of birth of the patient
         latestSessionId:
@@ -60,7 +60,7 @@ components:
           description: The id of the latest session
         latestSessionUpdate:
           type: string
-          format: "date-time"
+          format: 'date-time'
           nullable: true
           description: Date of the latest session update
         sessions:
@@ -70,11 +70,11 @@ components:
             $ref: '#/components/schemas/Session'
         createdAt:
           type: string
-          format: "date-time"
+          format: 'date-time'
           description: Date of creation of the patient
         updatedAt:
           type: string
-          format: "date-time"
+          format: 'date-time'
           description: Date of modification of the patient
       required:
         - id
@@ -146,24 +146,24 @@ components:
           description: Last name which is used for finding patients by last name
         dateOfBirth:
           type: string
-          format: "date"
+          format: 'date'
           nullable: true
           description: Date of birth which is used for finding patients by date of birth
         sessionUpdatedAfter:
           type: string
-          format: "date-time"
+          format: 'date-time'
           nullable: true
           description: >-
             Used for finding patients whose sessions have been updated after the specified date time
         createdAfter:
           type: string
-          format: "date-time"
+          format: 'date-time'
           nullable: true
           description: >-
             Used for finding patients whose date of creation is after the specified date time
         updatedAfter:
           type: string
-          format: "date-time"
+          format: 'date-time'
           nullable: true
           description: >-
             Used for finding patients whose date of modification is after the specified date time
@@ -250,20 +250,23 @@ components:
         - SAVED
     SessionFilter:
       type: object
-      description: Represents a patient filter for querying sessions.
+      description: Represents a session filter for querying sessions.
       properties:
         externalId:
           type: string
           description: Used for finding sessions by external ID, which is assigned to the session in a 3rd party application
+        patientId:
+          type: string
+          description: Used for finding sessions by patient ID
         createdAfter:
           type: string
-          format: "date-time"
+          format: 'date-time'
           nullable: true
           description: >-
             Used for finding sessions whose date of creation is after the specified date time
         updatedAfter:
           type: string
-          format: "date-time"
+          format: 'date-time'
           nullable: true
           description: >-
             Used for finding sessions whose date of modification is after the specified date time
@@ -318,11 +321,11 @@ components:
           $ref: '#/components/schemas/B2BOptic'
         createdAt:
           type: string
-          format: "date-time"
+          format: 'date-time'
           description: Date of creation of the session
         updatedAt:
           type: string
-          format: "date-time"
+          format: 'date-time'
           description: Date of modification of the session
       required:
         - id
@@ -401,8 +404,8 @@ paths:
             default and maximum value is set to 25 patients per request.
           example: 25
           schema:
-            type: "integer"
-            format: "int32"
+            type: 'integer'
+            format: 'int32'
             minimum: 1
             maximum: 25
         - name: after
@@ -548,7 +551,7 @@ paths:
       summary: >-
         Retrieves a list of sessions. This endpoint implements pagination by
         using links. Additionally, it is possible to filter by parameters such
-        as externalId, createdAfter, updatedAfter or to sort ascending or descending.
+        as patientId, externalId, createdAfter, updatedAfter or to sort ascending or descending.
       parameters:
         - name: first
           required: true
@@ -558,8 +561,8 @@ paths:
             is set to 25 sessions per request.
           example: 25
           schema:
-            type: "integer"
-            format: "int32"
+            type: 'integer'
+            format: 'int32'
             minimum: 1
             maximum: 25
         - name: after
@@ -571,7 +574,7 @@ paths:
         - name: filter
           required: false
           in: query
-          description: "Filter session by parameters e.g. externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.\r\n(Supported values: externalId, createdAfter, updatedAfter, state).\r\n\r\nA state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
+          description: "Filter session by parameters e.g. patientId, externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.\r\n(Supported values: patientId, externalId, createdAfter, updatedAfter, state).\r\n\r\nA state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
           schema:
             $ref: '#/components/schemas/SessionFilter'
           style: deepObject

@@ -25,7 +25,7 @@ using OpenAPIDateConverter = CNXT.Connector.Client.Client.OpenAPIDateConverter;
 namespace CNXT.Connector.Client.Model
 {
     /// <summary>
-    /// Represents a patient filter for querying sessions.
+    /// Represents a session filter for querying sessions.
     /// </summary>
     [DataContract]
     public partial class SessionFilter :  IEquatable<SessionFilter>, IValidatableObject
@@ -39,12 +39,14 @@ namespace CNXT.Connector.Client.Model
         /// Initializes a new instance of the <see cref="SessionFilter" /> class.
         /// </summary>
         /// <param name="externalId">Used for finding sessions by external ID, which is assigned to the session in a 3rd party application.</param>
+        /// <param name="patientId">Used for finding sessions by patient ID.</param>
         /// <param name="createdAfter">Used for finding sessions whose date of creation is after the specified date time.</param>
         /// <param name="updatedAfter">Used for finding sessions whose date of modification is after the specified date time.</param>
         /// <param name="state">state.</param>
-        public SessionFilter(string externalId = default(string), DateTime? createdAfter = default(DateTime?), DateTime? updatedAfter = default(DateTime?), SessionState state = default(SessionState))
+        public SessionFilter(string externalId = default(string), string patientId = default(string), DateTime? createdAfter = default(DateTime?), DateTime? updatedAfter = default(DateTime?), SessionState? state = default(SessionState?))
         {
             this.ExternalId = externalId;
+            this.PatientId = patientId;
             this.CreatedAfter = createdAfter;
             this.UpdatedAfter = updatedAfter;
             this.State = state;
@@ -56,6 +58,13 @@ namespace CNXT.Connector.Client.Model
         /// <value>Used for finding sessions by external ID, which is assigned to the session in a 3rd party application</value>
         [DataMember(Name="externalId", EmitDefaultValue=false)]
         public string ExternalId { get; set; }
+
+        /// <summary>
+        /// Used for finding sessions by patient ID
+        /// </summary>
+        /// <value>Used for finding sessions by patient ID</value>
+        [DataMember(Name="patientId", EmitDefaultValue=false)]
+        public string PatientId { get; set; }
 
         /// <summary>
         /// Used for finding sessions whose date of creation is after the specified date time
@@ -81,6 +90,7 @@ namespace CNXT.Connector.Client.Model
             var sb = new StringBuilder();
             sb.Append("class SessionFilter {\n");
             sb.Append("  ExternalId: ").Append(ExternalId).Append("\n");
+            sb.Append("  PatientId: ").Append(PatientId).Append("\n");
             sb.Append("  CreatedAfter: ").Append(CreatedAfter).Append("\n");
             sb.Append("  UpdatedAfter: ").Append(UpdatedAfter).Append("\n");
             sb.Append("  State: ").Append(State).Append("\n");
@@ -124,6 +134,11 @@ namespace CNXT.Connector.Client.Model
                     this.ExternalId.Equals(input.ExternalId))
                 ) && 
                 (
+                    this.PatientId == input.PatientId ||
+                    (this.PatientId != null &&
+                    this.PatientId.Equals(input.PatientId))
+                ) && 
+                (
                     this.CreatedAfter == input.CreatedAfter ||
                     (this.CreatedAfter != null &&
                     this.CreatedAfter.Equals(input.CreatedAfter))
@@ -151,6 +166,8 @@ namespace CNXT.Connector.Client.Model
                 int hashCode = 41;
                 if (this.ExternalId != null)
                     hashCode = hashCode * 59 + this.ExternalId.GetHashCode();
+                if (this.PatientId != null)
+                    hashCode = hashCode * 59 + this.PatientId.GetHashCode();
                 if (this.CreatedAfter != null)
                     hashCode = hashCode * 59 + this.CreatedAfter.GetHashCode();
                 if (this.UpdatedAfter != null)

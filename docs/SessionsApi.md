@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetB2bOptic**](SessionsApi.md#getb2boptic) | **GET** /sessions/{id}/b2boptic | Retrieves a session by ID represented as B2BOptic XML document.
 [**GetSession**](SessionsApi.md#getsession) | **GET** /sessions/{id} | Retrieves a session by ID.
-[**GetSessions**](SessionsApi.md#getsessions) | **GET** /sessions | Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as externalId, createdAfter, updatedAfter or to sort ascending or descending.
+[**GetSessions**](SessionsApi.md#getsessions) | **GET** /sessions | Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as patientId, externalId, createdAfter, updatedAfter or to sort ascending or descending.
 [**ImportB2BOptic**](SessionsApi.md#importb2boptic) | **PUT** /sessions/{id} | Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.
 [**ImportB2BOpticAsNewSession**](SessionsApi.md#importb2bopticasnewsession) | **POST** /sessions | Imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
 
@@ -169,7 +169,7 @@ No authorization required
 
 > SessionsResponse GetSessions (int first, string after = null, SessionFilter filter = null, List<string> sort = null, List<string> include = null)
 
-Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as externalId, createdAfter, updatedAfter or to sort ascending or descending.
+Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as patientId, externalId, createdAfter, updatedAfter or to sort ascending or descending.
 
 ### Example
 
@@ -190,13 +190,13 @@ namespace Example
             var apiInstance = new SessionsApi(Configuration.Default);
             var first = 25;  // int | Read the first n sessions of the set. The default and maximum value is set to 25 sessions per request.
             var after = after_example;  // string | Read all sessions in the set after (below) this cursor. (optional) 
-            var filter = new SessionFilter(); // SessionFilter | Filter session by parameters e.g. externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.  (Supported values: externalId, createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional) 
+            var filter = new SessionFilter(); // SessionFilter | Filter session by parameters e.g. patientId, externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.  (Supported values: patientId, externalId, createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional) 
             var sort = new List<string>(); // List<string> | List of parameters to sort sessions by parameter.  (Supported values: createdAt, updatedAt).    To sort descending add a '-' as prefix e.g. (-createdAt, -updatedAt). (optional) 
             var include = new List<string>(); // List<string> | List of related resources for including relationships directly into session such as Patient.  (Supported values: patient) (optional) 
 
             try
             {
-                // Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as externalId, createdAfter, updatedAfter or to sort ascending or descending.
+                // Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as patientId, externalId, createdAfter, updatedAfter or to sort ascending or descending.
                 SessionsResponse result = apiInstance.GetSessions(first, after, filter, sort, include);
                 Debug.WriteLine(result);
             }
@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **first** | **int**| Read the first n sessions of the set. The default and maximum value is set to 25 sessions per request. | 
  **after** | **string**| Read all sessions in the set after (below) this cursor. | [optional] 
- **filter** | [**SessionFilter**](SessionFilter.md)| Filter session by parameters e.g. externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.  (Supported values: externalId, createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) | [optional] 
+ **filter** | [**SessionFilter**](SessionFilter.md)| Filter session by parameters e.g. patientId, externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.  (Supported values: patientId, externalId, createdAfter, updatedAfter, state).    A state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED) | [optional] 
  **sort** | [**List&lt;string&gt;**](string.md)| List of parameters to sort sessions by parameter.  (Supported values: createdAt, updatedAt).    To sort descending add a &#39;-&#39; as prefix e.g. (-createdAt, -updatedAt). | [optional] 
  **include** | [**List&lt;string&gt;**](string.md)| List of related resources for including relationships directly into session such as Patient.  (Supported values: patient) | [optional] 
 
