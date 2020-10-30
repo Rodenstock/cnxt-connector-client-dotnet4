@@ -1,9 +1,9 @@
 openapi: 3.0.0
 info:
-  title: CNXT-Connector
+  title: CNXT®-Connector
   description:
-    The CNXT-Connector is developed by Rodenstock GmbH to integrate data
-    from measurement devices such as DNEye<sup>®</sup> Scanner, Rodenstock Fundus
+    The CNXT<sup>®</sup>-Connector is developed by Rodenstock GmbH to integrate
+    data from measurement devices such as DNEye<sup>®</sup> Scanner, Rodenstock Fundus
     Scanner, and ImpressionIST<sup>®</sup> into 3rd party applications as well as
     into several applications of Rodenstock such as WinFit, Rodenstock Consulting
     etc. If you have any feedback then please feel free to contact us via email. Copyright
@@ -14,108 +14,87 @@ info:
     url: https://www.rodenstock.com/cnxt
     email: cnxt@rodenstock.com
 tags:
-  - name: CNXT-Connector
-    description: ''
   - name: patients
     description: ''
   - name: sessions
+    description: ''
+  - name: assets
     description: ''
 servers:
   - url: '/api'
 components:
   schemas:
-    Asset:
+    AssetsResponse:
       type: object
-      description: Represents an asset
-      properties:
-        links:
-          description: An array of URIs of the associated asset resources
-          type: array
-          items:
-            properties:
-              rel:
-                type: string
-                description: The type of asset
-              href:
-                type: string
-                description: The URI of the assets being expressed with a self link
-    AssetResponse:
-      type: object
-      description: Represents an asset response
+      description: Represents an assets response
       properties:
         _links:
           type: object
           properties:
             dneyescanner:
               type: object
+              description: DNEye® Scanner related assets
               properties:
                 href:
                   type: string
                   description: The URI of the associated asset resource
             impressionist:
               type: object
+              description: ImpressionIST® related assets
               properties:
                 href:
                   type: string
                   description: The URI of the associated asset resource
-    DNEyeScannerAssetResponse:
+    DNEyeScannerAssetsResponse:
       type: object
-      description: Represents an asset response
+      description: Represents an DNEye® Scanner related assets response
       properties:
         _links:
           type: object
           properties:
             farMesopicImageRight:
-              type: object
               properties:
                 href:
                   type: string
                   description: The URI of the associated asset resource
             farMesopicImageLeft:
-              type: object
               properties:
                 href:
                   type: string
                   description: The URI of the associated asset resource
             farPhotopicImageRight:
-              type: object
               properties:
                 href:
                   type: string
                   description: The URI of the associated asset resource
             farPhotopicImageLeft:
-              type: object
               properties:
                 href:
                   type: string
                   description: The URI of the associated asset resource
             corneaImageRight:
-              type: object
               properties:
                 href:
                   type: string
                   description: The URI of the associated asset resource
             corneaImageLeft:
-              type: object
               properties:
                 href:
                   type: string
                   description: The URI of the associated asset resource
-    ImpressionISTAssetResponse:
+    ImpressionISTAssetsResponse:
       type: object
-      description: Represents an asset response
+      description: Represents an ImpressionIST® related assets response
       properties:
         _links:
           type: object
           properties:
             topImage:
-              type: object
               properties:
                 href:
                   type: string
                   description: The URI of the associated asset resource
             bottomImage:
-              type: object
               properties:
                 href:
                   type: string
@@ -817,7 +796,7 @@ paths:
     get:
       operationId: getAssets
       summary:
-        Retrieves available assets (images taken by ImpressionIST, DNEye Scanner,
+        Retrieves available assets (images taken by ImpressionIST® , DNEye®  Scanner,
         Rodenstock Fundus Scanner etc.) according to the defined session ID.
       parameters:
         - name: id
@@ -832,7 +811,7 @@ paths:
           content:
             application/json:
               schema:
-                '$ref': '#/components/schemas/AssetResponse'
+                '$ref': '#/components/schemas/AssetsResponse'
         '404':
           description: Session not found
         '500':
@@ -858,7 +837,7 @@ paths:
           content:
             application/json:
               schema:
-                '$ref': '#/components/schemas/DNEyeScannerAssetResponse'
+                '$ref': '#/components/schemas/DNEyeScannerAssetsResponse'
         '404':
           description: Asset not found
         '500':
@@ -884,7 +863,7 @@ paths:
           content:
             application/json:
               schema:
-                '$ref': '#/components/schemas/ImpressionISTAssetResponse'
+                '$ref': '#/components/schemas/ImpressionISTAssetsResponse'
         '404':
           description: Asset not found
         '500':
