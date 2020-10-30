@@ -3,7 +3,7 @@
   "info": {
     "title": "CNXT-Connector",
     "description": "The CNXT-Connector is developed by Rodenstock GmbH to integrate data from measurement devices such as DNEye<sup>®</sup> Scanner, Rodenstock Fundus Scanner, and ImpressionIST<sup>®</sup> into 3rd party applications as well as into several applications of Rodenstock such as WinFit, Rodenstock Consulting etc. If you have any feedback then please feel free to contact us via email. Copyright © Rodenstock GmbH 2020",
-    "version": "1.0.0",
+    "version": "1.0.5",
     "contact": {
       "name": "Rodenstock GmbH",
       "url": "https://www.rodenstock.com/cnxt",
@@ -31,6 +31,151 @@
   ],
   "components": {
     "schemas": {
+      "Asset": {
+        "type": "object",
+        "description": "Represents an asset",
+        "properties": {
+          "links": {
+            "description": "An array of URIs of the associated asset resources",
+            "type": "array",
+            "items": {
+              "properties": {
+                "rel": {
+                  "type": "string",
+                  "description": "The type of asset"
+                },
+                "href": {
+                  "type": "string",
+                  "description": "The URI of the assets being expressed with a self link"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AssetResponse": {
+        "type": "object",
+        "description": "Represents an asset response",
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "dneyescanner": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "The URI of the associated asset resource"
+                  }
+                }
+              },
+              "impressionist": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "The URI of the associated asset resource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "DNEyeScannerAssetResponse": {
+        "type": "object",
+        "description": "Represents an asset response",
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "farMesopicImageRight": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "The URI of the associated asset resource"
+                  }
+                }
+              },
+              "farMesopicImageLeft": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "The URI of the associated asset resource"
+                  }
+                }
+              },
+              "farPhotopicImageRight": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "The URI of the associated asset resource"
+                  }
+                }
+              },
+              "farPhotopicImageLeft": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "The URI of the associated asset resource"
+                  }
+                }
+              },
+              "corneaImageRight": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "The URI of the associated asset resource"
+                  }
+                }
+              },
+              "corneaImageLeft": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "The URI of the associated asset resource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "ImpressionISTAssetResponse": {
+        "type": "object",
+        "description": "Represents an asset response",
+        "properties": {
+          "_links": {
+            "type": "object",
+            "properties": {
+              "topImage": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "The URI of the associated asset resource"
+                  }
+                }
+              },
+              "bottomImage": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "description": "The URI of the associated asset resource"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "Patient": {
         "type": "object",
         "description": "Represents a patient",
@@ -53,12 +198,7 @@
           },
           "gender": {
             "type": "string",
-            "enum": [
-              "Female",
-              "Male",
-              "Other",
-              "Unknown"
-            ],
+            "enum": ["Female", "Male", "Other", "Unknown"],
             "description": "Gender of the patient (Supported values: Female, Male, Other, Unknown)"
           },
           "dateOfBirth": {
@@ -95,12 +235,7 @@
             "description": "Date of modification of the patient"
           }
         },
-        "required": [
-          "id",
-          "firstName",
-          "lastName",
-          "dateOfBirth"
-        ]
+        "required": ["id", "firstName", "lastName", "dateOfBirth"]
       },
       "PatientResponse": {
         "description": "Represents a patient response",
@@ -171,9 +306,7 @@
             }
           }
         },
-        "required": [
-          "self"
-        ]
+        "required": ["self"]
       },
       "PatientFilter": {
         "type": "object",
@@ -258,9 +391,7 @@
             }
           }
         },
-        "required": [
-          "self"
-        ]
+        "required": ["self"]
       },
       "PaginationLink": {
         "type": "object",
@@ -285,9 +416,7 @@
             }
           }
         },
-        "required": [
-          "self"
-        ]
+        "required": ["self"]
       },
       "PageInfo": {
         "type": "object",
@@ -310,20 +439,12 @@
             "description": "Cursor to the last edge, or null if this page is empty"
           }
         },
-        "required": [
-          "self"
-        ]
+        "required": ["self"]
       },
       "SessionState": {
         "description": "State of the session",
         "type": "string",
-        "enum": [
-          "CLOSED",
-          "OPEN",
-          "ORDERED",
-          "EXPORTED",
-          "SAVED"
-        ]
+        "enum": ["CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED"]
       },
       "SessionFilter": {
         "type": "object",
@@ -391,13 +512,7 @@
           },
           "state": {
             "type": "string",
-            "enum": [
-              "CLOSED",
-              "OPEN",
-              "ORDERED",
-              "EXPORTED",
-              "SAVED"
-            ],
+            "enum": ["CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED"],
             "description": "State of the session. (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
           },
           "patientId": {
@@ -423,9 +538,7 @@
             "description": "Date of modification of the session"
           }
         },
-        "required": [
-          "id"
-        ]
+        "required": ["id"]
       },
       "SessionResponse": {
         "description": "Represents a session response",
@@ -515,9 +628,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [
-          "patients"
-        ]
+        "tags": ["patients"]
       }
     },
     "/patients": {
@@ -602,9 +713,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [
-          "patients"
-        ]
+        "tags": ["patients"]
       }
     },
     "/sessions/{id}": {
@@ -657,9 +766,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [
-          "sessions"
-        ]
+        "tags": ["sessions"]
       },
       "put": {
         "operationId": "importB2BOptic",
@@ -721,9 +828,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [
-          "sessions"
-        ]
+        "tags": ["sessions"]
       }
     },
     "/sessions": {
@@ -808,9 +913,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [
-          "sessions"
-        ]
+        "tags": ["sessions"]
       },
       "post": {
         "operationId": "importB2BOpticAsNewSession",
@@ -860,9 +963,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [
-          "sessions"
-        ]
+        "tags": ["sessions"]
       }
     },
     "/sessions/{id}/b2boptic": {
@@ -874,6 +975,7 @@
             "name": "id",
             "required": true,
             "in": "path",
+            "description": "ID of the session",
             "schema": {
               "type": "string"
             }
@@ -898,9 +1000,115 @@
             "description": "Internal server error"
           }
         },
-        "tags": [
-          "sessions"
-        ]
+        "tags": ["sessions"]
+      }
+    },
+    "/remote/sessions/{id}/assets": {
+      "get": {
+        "operationId": "getAssets",
+        "summary": "Retrieves available assets (images taken by ImpressionIST, DNEye Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the session",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The assigned assets according to the defined session ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Session not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": ["sessions"]
+      }
+    },
+    "/remote/dneye/{id}/assets": {
+      "get": {
+        "operationId": "getDNEyeScannerAssets",
+        "summary": "Retrieves available DNEye Scanner assets according to the defined asset ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the asset",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The assigned assets according to the defined asset ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DNEyeScannerAssetResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Asset not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": ["assets"]
+      }
+    },
+    "/remote/impressionist/{id}/assets": {
+      "get": {
+        "operationId": "getImpressionISTAssets",
+        "summary": "Retrieves available ImpressionIST assets according to the defined asset ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the asset",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The assigned assets according to the defined asset ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImpressionISTAssetResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Asset not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": ["assets"]
       }
     }
   }

@@ -1,7 +1,7 @@
 {
   "packageName": "CNXT.Connector.Client",
   "packageGuid": "da818353-0b62-4df6-91ed-006485aec6e6",
-  "packageVersion": "1.0.0",
+  "packageVersion": "1.0.5",
   "targetFramework": "v4.0",
   "optionalAssemblyInfo": true,
   "useDateTimeOffset": false

@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-CNXT-Connector
+CNXT®-Connector
 
-The CNXT-Connector is developed by Rodenstock GmbH to integrate data from measurement devices such as DNEye<sup>®</sup> Scanner, Rodenstock Fundus Scanner, and ImpressionIST<sup>®</sup> into 3rd party applications as well as into several applications of Rodenstock such as WinFit, Rodenstock Consulting etc. If you have any feedback then please feel free to contact us via email. Copyright © Rodenstock GmbH 2020
+The CNXT<sup>®</sup>-Connector is developed by Rodenstock GmbH to integrate data from measurement devices such as DNEye<sup>®</sup> Scanner, Rodenstock Fundus Scanner, and ImpressionIST<sup>®</sup> into 3rd party applications as well as into several applications of Rodenstock such as WinFit, Rodenstock Consulting etc. If you have any feedback then please feel free to contact us via email. Copyright © Rodenstock GmbH 2020
 
-The version of the OpenAPI document: 1.0.0
+The version of the OpenAPI document: 1.0.5
 Contact: cnxt@rodenstock.com
 -->
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
@@ -68,41 +68,8 @@ Contact: cnxt@rodenstock.com
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\PatientsApi.cs" />
-    <Compile Include="Api\SessionsApi.cs" />
-    <Compile Include="Client\ApiClient.cs" />
-    <Compile Include="Client\ApiException.cs" />
-    <Compile Include="Client\ApiResponse.cs" />
-    <Compile Include="Client\Configuration.cs" />
-    <Compile Include="Client\ExceptionFactory.cs" />
-    <Compile Include="Client\GlobalConfiguration.cs" />
-    <Compile Include="Client\IApiAccessor.cs" />
-    <Compile Include="Client\IReadableConfiguration.cs" />
-    <Compile Include="Client\OpenAPIDateConverter.cs" />
-    <Compile Include="Client\ReadOnlyDictionary.cs" />
-    <Compile Include="Model\B2BOptic.cs" />
-    <Compile Include="Model\PageInfo.cs" />
-    <Compile Include="Model\PaginationLink.cs" />
-    <Compile Include="Model\PaginationLinkNext.cs" />
-    <Compile Include="Model\Patient.cs" />
-    <Compile Include="Model\PatientFilter.cs" />
-    <Compile Include="Model\PatientLink.cs" />
-    <Compile Include="Model\PatientLinkPatient.cs" />
-    <Compile Include="Model\PatientLinkSelf.cs" />
-    <Compile Include="Model\PatientResponse.cs" />
-    <Compile Include="Model\PatientResponseAllOf.cs" />
-    <Compile Include="Model\PatientsResponse.cs" />
-    <Compile Include="Model\Session.cs" />
-    <Compile Include="Model\SessionFilter.cs" />
-    <Compile Include="Model\SessionLink.cs" />
-    <Compile Include="Model\SessionLinkB2bOptic.cs" />
-    <Compile Include="Model\SessionLinkPatient.cs" />
-    <Compile Include="Model\SessionLinkSession.cs" />
-    <Compile Include="Model\SessionResponse.cs" />
-    <Compile Include="Model\SessionResponseAllOf.cs" />
-    <Compile Include="Model\SessionsResponse.cs" />
-    <Compile Include="Model\SessionState.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="**\*.cs"
+             Exclude="obj\**" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

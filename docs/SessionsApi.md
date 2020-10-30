@@ -4,12 +4,88 @@ All URIs are relative to *http://localhost/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**GetAssets**](SessionsApi.md#getassets) | **GET** /remote/sessions/{id}/assets | Retrieves available assets (images taken by ImpressionIST® , DNEye®  Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.
 [**GetB2bOptic**](SessionsApi.md#getb2boptic) | **GET** /sessions/{id}/b2boptic | Retrieves a session by ID represented as B2BOptic XML document.
 [**GetSession**](SessionsApi.md#getsession) | **GET** /sessions/{id} | Retrieves a session by ID.
 [**GetSessions**](SessionsApi.md#getsessions) | **GET** /sessions | Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as patientId, externalId, createdAfter, updatedAfter or to sort ascending or descending.
 [**ImportB2BOptic**](SessionsApi.md#importb2boptic) | **PUT** /sessions/{id} | Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.
 [**ImportB2BOpticAsNewSession**](SessionsApi.md#importb2bopticasnewsession) | **POST** /sessions | Imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
 
+
+
+## GetAssets
+
+> AssetsResponse GetAssets (string id)
+
+Retrieves available assets (images taken by ImpressionIST® , DNEye®  Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.
+
+### Example
+
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using CNXT.Connector.Client.Api;
+using CNXT.Connector.Client.Client;
+using CNXT.Connector.Client.Model;
+
+namespace Example
+{
+    public class GetAssetsExample
+    {
+        public static void Main()
+        {
+            Configuration.Default.BasePath = "http://localhost/api";
+            var apiInstance = new SessionsApi(Configuration.Default);
+            var id = id_example;  // string | ID of the session
+
+            try
+            {
+                // Retrieves available assets (images taken by ImpressionIST® , DNEye®  Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.
+                AssetsResponse result = apiInstance.GetAssets(id);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException e)
+            {
+                Debug.Print("Exception when calling SessionsApi.GetAssets: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **string**| ID of the session | 
+
+### Return type
+
+[**AssetsResponse**](AssetsResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | The assigned assets according to the defined session ID. |  -  |
+| **404** | Session not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## GetB2bOptic
@@ -35,7 +111,7 @@ namespace Example
         {
             Configuration.Default.BasePath = "http://localhost/api";
             var apiInstance = new SessionsApi(Configuration.Default);
-            var id = id_example;  // string | 
+            var id = id_example;  // string | ID of the session
 
             try
             {
@@ -59,7 +135,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **string**|  | 
+ **id** | **string**| ID of the session | 
 
 ### Return type
 
