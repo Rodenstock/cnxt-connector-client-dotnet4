@@ -56,6 +56,9 @@ namespace Rodenstock.CNXT.Connector.Client.ConsoleApplication
                 // Query session by id and include patient and b2boptic relationships
                 session = sessionsApi.GetSession(sessionResponse.Id, new List<string>() { "patient", "b2boptic" });
                 Console.WriteLine("Session: {0}" + Environment.NewLine, JsonConvert.SerializeObject(session));
+
+                // Query assets assigned to the the specified session
+                AssetsResponse assetResponse = sessionsApi.GetAssets(session.Id);
             }
 
             string b2bOptic_Sample1 = System.IO.File.ReadAllText("./Data/B2BOptic_Sample1.xml");
@@ -67,6 +70,14 @@ namespace Rodenstock.CNXT.Connector.Client.ConsoleApplication
 
             // Import b2boptic XML document and update it by session for the specified session
             sessionIds = sessionsApi.ImportB2BOptic("691e5c29-3d70-4a3e-a8dd-bea781faba4b", b2bOptic_Sample2, "OPEN");
+
+            SessionResponse _sessionResponse = sessionsApi.GetSession("f62fc646-9101-4f20-8255-65816435662c");
+            AssetsResponse _assetResponse = sessionsApi.GetAssets(_sessionResponse.Id);
+
+            AssetsApi assetsApi = new AssetsApi(configuration);
+            DNEyeScannerAssetsResponse dnEyeScannerAssetsResponse = assetsApi.GetDNEyeScannerAssets("b126c195-8dde-47d6-9373-a2a47a72abaa");
+
+            ImpressionISTAssetsResponse impressionISTAssetResponse = assetsApi.GetImpressionISTAssets("f62fc646-9101-4f20-8255-65816435662c");
 
             Console.ReadLine();
         }
