@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost:8280/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateSession**](SessionsApi.md#createsession) | **POST** /sessions/{id} | Creates a session.
+[**CreateSession**](SessionsApi.md#createsession) | **POST** /sessions | Creates a session.
 [**DeleteSession**](SessionsApi.md#deletesession) | **DELETE** /sessions/{id} | Deletes a session.
 [**GetAssets**](SessionsApi.md#getassets) | **GET** /remote/sessions/{id}/assets | Retrieves available assets (images taken by ImpressionIST� , DNEye�  Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.
 [**GetB2bOptic**](SessionsApi.md#getb2boptic) | **GET** /sessions/{id}/b2boptic | Retrieves a session by ID represented as B2BOptic XML document.
@@ -609,7 +609,6 @@ No authorization required
 [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
-
 
 
 

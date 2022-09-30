@@ -4,7 +4,7 @@ All URIs are relative to *http://localhost:8280/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreatePatient**](PatientsApi.md#createpatient) | **POST** /patients/{id} | Creates a patient.
+[**CreatePatient**](PatientsApi.md#createpatient) | **POST** /patients | Creates a patient.
 [**DeletePatient**](PatientsApi.md#deletepatient) | **DELETE** /patients/{id} | Deletes a patient.
 [**GetPatient**](PatientsApi.md#getpatient) | **GET** /patients/{id} | Retrieves a patient by ID.
 [**GetPatients**](PatientsApi.md#getpatients) | **GET** /patients | Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.
