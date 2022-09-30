@@ -213,7 +213,7 @@ components:
       properties:
         externalId:
           type: string
-          description: External ID of the session which is assigned to the session in a 3rd party application
+          description: External ID of the patient which is assigned to the patient in a 3rd party application
         title:
           type: string
           description: Title of the patient
