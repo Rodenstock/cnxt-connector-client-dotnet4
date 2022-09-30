@@ -78,7 +78,7 @@ namespace CNXT.Connector.Client.Model
         /// Initializes a new instance of the <see cref="PatientResponse" /> class.
         /// </summary>
         /// <param name="id">ID of the patient.</param>
-        /// <param name="externalId">External ID of the session, which is assigned to the session in a 3rd party application.</param>
+        /// <param name="externalId">External ID of the session which is assigned to the session in a 3rd party application.</param>
         /// <param name="title">Title of the patient.</param>
         /// <param name="firstName">First name of the patient (required).</param>
         /// <param name="lastName">Last name of the patient (required).</param>
@@ -146,9 +146,9 @@ namespace CNXT.Connector.Client.Model
         public string Id { get; set; }
 
         /// <summary>
-        /// External ID of the session, which is assigned to the session in a 3rd party application
+        /// External ID of the patient which is assigned to the patient in a 3rd party application
         /// </summary>
-        /// <value>External ID of the session, which is assigned to the session in a 3rd party application</value>
+        /// <value>External ID of the patient which is assigned to the patient in a 3rd party application</value>
         [DataMember(Name="externalId", EmitDefaultValue=false)]
         public string ExternalId { get; set; }
 

@@ -54,12 +54,12 @@ namespace CNXT.Connector.Client.Client
         public ApiClient()
         {
             Configuration = CNXT.Connector.Client.Client.Configuration.Default;
-            RestClient = new RestClient("http://localhost/api");
+            RestClient = new RestClient("http://localhost:8280/api");
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiClient" /> class
-        /// with default base path (http://localhost/api).
+        /// with default base path (http://localhost:8280/api).
         /// </summary>
         /// <param name="config">An instance of Configuration.</param>
         public ApiClient(Configuration config)
@@ -74,7 +74,7 @@ namespace CNXT.Connector.Client.Client
         /// with default configuration.
         /// </summary>
         /// <param name="basePath">The base path.</param>
-        public ApiClient(String basePath = "http://localhost/api")
+        public ApiClient(String basePath = "http://localhost:8280/api")
         {
            if (String.IsNullOrEmpty(basePath))
                 throw new ArgumentException("basePath cannot be empty");

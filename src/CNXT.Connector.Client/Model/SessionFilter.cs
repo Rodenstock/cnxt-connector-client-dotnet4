@@ -38,7 +38,7 @@ namespace CNXT.Connector.Client.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SessionFilter" /> class.
         /// </summary>
-        /// <param name="externalId">Used for finding sessions by external ID, which is assigned to the session in a 3rd party application.</param>
+        /// <param name="externalId">Used for finding sessions by external ID which is assigned to the session in a 3rd party application.</param>
         /// <param name="patientId">Used for finding sessions by patient ID.</param>
         /// <param name="createdAfter">Used for finding sessions whose date of creation is after the specified date time.</param>
         /// <param name="updatedAfter">Used for finding sessions whose date of modification is after the specified date time.</param>
@@ -64,9 +64,9 @@ namespace CNXT.Connector.Client.Model
         }
 
         /// <summary>
-        /// Used for finding sessions by external ID, which is assigned to the session in a 3rd party application
+        /// Used for finding sessions by external ID which is assigned to the session in a 3rd party application
         /// </summary>
-        /// <value>Used for finding sessions by external ID, which is assigned to the session in a 3rd party application</value>
+        /// <value>Used for finding sessions by external ID which is assigned to the session in a 3rd party application</value>
         [DataMember(Name="externalId", EmitDefaultValue=false)]
         public string ExternalId { get; set; }
 

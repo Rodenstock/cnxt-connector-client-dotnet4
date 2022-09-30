@@ -6,7 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | ID of the session | 
-**ExternalId** | **string** | External ID of the session, which is assigned to the session in a 3rd party application | [optional] 
+**ExternalId** | **string** | External ID of the session which is assigned to the session in a 3rd party application | [optional] 
 **Name** | **string** | Name of the session | [optional] 
 **Notes** | **string** | Notes of the session | [optional] 
 **State** | **string** | State of the session. (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) | [optional] 

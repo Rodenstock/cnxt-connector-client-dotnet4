@@ -79,7 +79,7 @@ namespace CNXT.Connector.Client.Model
         /// Initializes a new instance of the <see cref="Session" /> class.
         /// </summary>
         /// <param name="id">ID of the session.</param>
-        /// <param name="externalId">External ID of the session, which is assigned to the session in a 3rd party application.</param>
+        /// <param name="externalId">External ID of the session which is assigned to the session in a 3rd party application.</param>
         /// <param name="name">Name of the session.</param>
         /// <param name="notes">Notes of the session.</param>
         /// <param name="state">State of the session. (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED).</param>
@@ -110,9 +110,9 @@ namespace CNXT.Connector.Client.Model
         public string Id { get; set; }
 
         /// <summary>
-        /// External ID of the session, which is assigned to the session in a 3rd party application
+        /// External ID of the session which is assigned to the session in a 3rd party application
         /// </summary>
-        /// <value>External ID of the session, which is assigned to the session in a 3rd party application</value>
+        /// <value>External ID of the session which is assigned to the session in a 3rd party application</value>
         [DataMember(Name="externalId", EmitDefaultValue=false)]
         public string ExternalId { get; set; }
 

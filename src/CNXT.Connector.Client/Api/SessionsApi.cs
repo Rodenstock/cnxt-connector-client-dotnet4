@@ -204,7 +204,7 @@ namespace CNXT.Connector.Client.Api
         /// <returns>ApiResponse of List<string></returns>
         ApiResponse<List<string>> ImportB2BOpticWithHttpInfo (string id, string body, string externalId = default(string), string patientId = default(string), string sessionName = default(string), string state = default(string), string origin = default(string));
         /// <summary>
-        /// Creates a session or imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
+        /// Creates a session or imports a B2BOptic XML document as a new session which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
         /// </summary>
         /// <remarks>
         /// 
@@ -221,7 +221,7 @@ namespace CNXT.Connector.Client.Api
         List<string> ImportB2BOpticAsNewSession (string body, string sessionId = default(string), string externalId = default(string), string patientId = default(string), string sessionName = default(string), string state = default(string), string origin = default(string));
 
         /// <summary>
-        /// Creates a session or imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
+        /// Creates a session or imports a B2BOptic XML document as a new session which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
         /// </summary>
         /// <remarks>
         /// 
@@ -992,7 +992,7 @@ namespace CNXT.Connector.Client.Api
         }
 
         /// <summary>
-        /// Creates a session or imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly. 
+        /// Creates a session or imports a B2BOptic XML document as a new session which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly. 
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">The session to create.</param>
@@ -1010,7 +1010,7 @@ namespace CNXT.Connector.Client.Api
         }
 
         /// <summary>
-        /// Creates a session or imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly. 
+        /// Creates a session or imports a B2BOptic XML document as a new session which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly. 
         /// </summary>
         /// <exception cref="CNXT.Connector.Client.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="body">The session to create.</param>
