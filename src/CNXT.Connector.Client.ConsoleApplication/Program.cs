@@ -15,8 +15,8 @@ namespace Rodenstock.CNXT.Connector.Client.ConsoleApplication
         private static void Main(string[] args)
         {
             Configuration configuration = new Configuration();
-            configuration.BasePath = "http://connector.develop.cnxt.dtr01.rodenstock.com:8080/api";
-            //configuration.BasePath = "http://localhost:8280/api";
+            //configuration.BasePath = "https://hub.cnxt.rodenstock.com";
+            configuration.BasePath = "http://localhost:8280/api";
 
             PatientsApi patientsApi = new PatientsApi(configuration);
 
@@ -42,34 +42,45 @@ namespace Rodenstock.CNXT.Connector.Client.ConsoleApplication
 
             SessionsApi sessionsApi = new SessionsApi(configuration);
 
+            SessionInput sessionInput = new SessionInput();
+            sessionInput.PatientId = patient.Id;
+            sessionInput.Name = "Created session via content type application/json";
+
+            SessionResponse createdSessionResponse = sessionsApi.CreateSession(sessionInput);
+
+            sessionInput.Name = "Patched session via content type application/json";
+
+            SessionResponse patchedSessionResponse = sessionsApi.PatchSession(createdSessionResponse.Id, sessionInput);
+
             // Query the first 25 sessions sorted by upatedAt date (descending)
-            SessionsResponse sessionsResponse = sessionsApi.GetSessions(25, null, new SessionFilter() { UpdatedAfter = DateTime.Parse("2020-02-17T10:00:00.391984Z"), State = null }, new List<string>() { "-updatedAt" }, new List<string>() { "patient" });
+            SessionsResponse sessionsResponse1 = sessionsApi.GetSessions(25, null, new SessionFilter() { UpdatedAfter = DateTime.Parse("2022-09-29T10:00:00.391984Z"), State = null }, new List<string>() { "-updatedAt" }, new List<string>() { "patient" });
 
             // Query the next 25 sessions sorted by updatedAt date (descending)
-            sessionsResponse = sessionsApi.GetSessions(25, sessionsResponse.PageInfo.EndCursor, new SessionFilter() { UpdatedAfter = DateTime.Parse("2020-02-17T10:00:00.391984Z"), State = null }, new List<string>() { "-updatedAt" }, new List<string>() { "patient" });
+            sessionsResponse1 = sessionsApi.GetSessions(25, sessionsResponse1.PageInfo.EndCursor, new SessionFilter() { UpdatedAfter = DateTime.Parse("2020-02-17T10:00:00.391984Z"), State = null }, new List<string>() { "-updatedAt" }, new List<string>() { "patient" });
 
-            List<SessionResponse> sessions = sessionsResponse.Sessions;
+            List<SessionResponse> sessions = sessionsResponse1.Sessions;
 
-            SessionResponse session = null;
-            foreach (SessionResponse sessionResponse in sessions)
+            foreach (SessionResponse sessionRes in sessions)
             {
                 // Query session by id and include patient and b2boptic relationships
-                session = sessionsApi.GetSession(sessionResponse.Id, new List<string>() { "patient", "b2boptic" });
+                SessionResponse session = sessionsApi.GetSession(sessionRes.Id, new List<string>() { "patient", "b2boptic" });
                 Console.WriteLine("Session: {0}" + Environment.NewLine, JsonConvert.SerializeObject(session));
+
+                string b2bOpticXML = sessionsApi.GetB2bOptic(session.Id);
+                Console.WriteLine("Session B2BOptic XML: {0}" + Environment.NewLine, b2bOpticXML);
 
                 // Query assets assigned to the the specified session
                 AssetsResponse assetResponse = sessionsApi.GetAssets(session.Id);
             }
 
             string b2bOptic_Sample1 = System.IO.File.ReadAllText("./Data/B2BOptic_Sample1.xml");
-
-            // Import b2boptic XML document as new session
-            List<string> sessionIds = sessionsApi.ImportB2BOpticAsNewSession(b2bOptic_Sample1, "OPEN");
-
             string b2bOptic_Sample2 = System.IO.File.ReadAllText("./Data/B2BOptic_Sample2.xml");
 
+            // Import b2boptic XML document as new session
+            List<string> sessionIds = sessionsApi.ImportB2BOpticAsNewSession(b2bOptic_Sample1);
+
             // Import b2boptic XML document and update it by session for the specified session
-            sessionIds = sessionsApi.ImportB2BOptic("691e5c29-3d70-4a3e-a8dd-bea781faba4b", b2bOptic_Sample2, "OPEN");
+            sessionIds = sessionsApi.ImportB2BOptic("691e5c29-3d70-4a3e-a8dd-bea781faba4b", b2bOptic_Sample2);
 
             SessionResponse _sessionResponse = sessionsApi.GetSession("f62fc646-9101-4f20-8255-65816435662c");
             AssetsResponse _assetResponse = sessionsApi.GetAssets(_sessionResponse.Id);
