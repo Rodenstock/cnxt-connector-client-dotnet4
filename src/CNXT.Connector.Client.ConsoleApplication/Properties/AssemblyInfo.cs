@@ -8,8 +8,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Rodenstock GmbH")]
-[assembly: AssemblyProduct("CNXT-Connector-Client ConsoleApplication")]
-[assembly: AssemblyCopyright("Copyright © Rodenstock GmbH 2020")]
+[assembly: AssemblyProduct("CNXT-API Client ConsoleApplication")]
+[assembly: AssemblyCopyright("Copyright © Rodenstock GmbH 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -26,5 +26,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Build and Revision Numbers by using the '*'
 // as shown below: [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.4.0")]
-[assembly: AssemblyFileVersion("1.0.4.0")]
+[assembly: AssemblyVersion("1.5.1.0")]
+[assembly: AssemblyFileVersion("1.5.1.0")]
