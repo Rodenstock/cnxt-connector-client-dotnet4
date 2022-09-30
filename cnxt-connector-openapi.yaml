@@ -153,7 +153,7 @@ components:
           description: ID of the patient
         externalId:
           type: string
-          description: External ID of the session, which is assigned to the session in a 3rd party application
+          description: External ID of the patient which is assigned to the patient in a 3rd party application
         title:
           type: string
           description: Title of the patient
@@ -213,7 +213,7 @@ components:
       properties:
         externalId:
           type: string
-          description: External ID of the session, which is assigned to the session in a 3rd party application
+          description: External ID of the session which is assigned to the session in a 3rd party application
         title:
           type: string
           description: Title of the patient
@@ -296,7 +296,7 @@ components:
       properties:
         externalId:
           type: string
-          description: External Id of a patient used in a 3rd party application to make it referenceable in CNXT
+          description: Used for finding patients by external ID which is assigned to the patient in a 3rd party application
         search:
           type: string
           description:
@@ -424,7 +424,7 @@ components:
         externalId:
           type: string
           description:
-            Used for finding sessions by external ID, which is assigned
+            Used for finding sessions by external ID which is assigned
             to the session in a 3rd party application
         patientId:
           type: string
@@ -478,7 +478,7 @@ components:
         externalId:
           type: string
           description:
-            External ID of the session, which is assigned to the session
+            External ID of the session which is assigned to the session
             in a 3rd party application
         name:
           type: string
@@ -521,7 +521,7 @@ components:
         externalId:
           type: string
           description:
-            External ID of the session, which is assigned to the session
+            External ID of the session which is assigned to the session
             in a 3rd party application
         name:
           type: string
@@ -1087,7 +1087,7 @@ paths:
     post:
       operationId: importB2BOpticAsNewSession
       summary:
-        Creates a session or imports a B2BOptic XML document as a new session, which is assigned
+        Creates a session or imports a B2BOptic XML document as a new session which is assigned
         to an existing patient via Patient id. If the patient does not exist with
         the given patient id, a new patient is created and the new session is associated
         accordingly.

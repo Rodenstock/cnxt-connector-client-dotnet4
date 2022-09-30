@@ -6,6 +6,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | ID of the patient | 
+**ExternalId** | **string** | External ID of the patient which is assigned to the session in a 3rd party application | [optional] 
 **Title** | **string** | Title of the patient | [optional] 
 **FirstName** | **string** | First name of the patient | 
 **LastName** | **string** | Last name of the patient | 

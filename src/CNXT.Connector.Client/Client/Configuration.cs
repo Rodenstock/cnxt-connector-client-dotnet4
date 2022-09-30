@@ -115,7 +115,7 @@ namespace CNXT.Connector.Client.Client
         public Configuration()
         {
             UserAgent = "OpenAPI-Generator/1.5.0/csharp";
-            BasePath = "http://localhost/api";
+            BasePath = "http://localhost:8280/api";
             DefaultHeader = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
             ApiKeyPrefix = new ConcurrentDictionary<string, string>();
@@ -131,7 +131,7 @@ namespace CNXT.Connector.Client.Client
             IDictionary<string, string> defaultHeader,
             IDictionary<string, string> apiKey,
             IDictionary<string, string> apiKeyPrefix,
-            string basePath = "http://localhost/api") : this()
+            string basePath = "http://localhost:8280/api") : this()
         {
             if (string.IsNullOrWhiteSpace(basePath))
                 throw new ArgumentException("The provided basePath is invalid.", "basePath");

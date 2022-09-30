@@ -20,7 +20,7 @@
         <!-- The description can be used in package manager UI. Note that the
              nuget.org gallery uses information you add in the portal. -->
         <description>A library generated from a OpenAPI doc</description>
-        <licenseUrl>http://localhost</licenseUrl>
+        <licenseUrl>http://localhost:8280</licenseUrl>
 
         <!-- Dependencies are automatically installed when the package is installed -->
         <dependencies>

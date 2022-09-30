@@ -1,6 +1,6 @@
 # CNXT.Connector.Client.Api.AssetsApi
 
-All URIs are relative to *http://localhost/api*
+All URIs are relative to *http://localhost:8280/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -30,7 +30,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "http://localhost/api";
+            Configuration.Default.BasePath = "http://localhost:8280/api";
             var apiInstance = new AssetsApi(Configuration.Default);
             var id = id_example;  // string | ID of the asset
 
@@ -105,7 +105,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "http://localhost/api";
+            Configuration.Default.BasePath = "http://localhost:8280/api";
             var apiInstance = new AssetsApi(Configuration.Default);
             var id = id_example;  // string | ID of the asset
 

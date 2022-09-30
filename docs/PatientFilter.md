@@ -5,6 +5,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**ExternalId** | **string** | Used for finding patients by external ID which is assigned to the patient in a 3rd party application
 **Search** | **string** | Full text search parameter which is used for finding patients by first name or last name | [optional] 
 **FirstName** | **string** | First name which is used for finding patients by first name | [optional] 
 **LastName** | **string** | Last name which is used for finding patients by last name | [optional] 

@@ -19,7 +19,8 @@ namespace Rodenstock.CNXT.Connector.Client.ConsoleApplication
             configuration.BasePath = "http://localhost:8280/api";
 
             PatientsApi patientsApi = new PatientsApi(configuration);
-
+            PatientInput patientInput = new PatientInput();
+            patientInput.DateOfBirth = new DateTime(1970, 01, 01);
             // Query the first 25 patients sorted by lastName (ascending)
             PatientsResponse patientsResponse = patientsApi.GetPatients(25, null, new PatientFilter()
             {

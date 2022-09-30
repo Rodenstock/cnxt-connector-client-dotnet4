@@ -1,23 +1,154 @@
 # CNXT.Connector.Client.Api.SessionsApi
 
-All URIs are relative to *http://localhost/api*
+All URIs are relative to *http://localhost:8280/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAssets**](SessionsApi.md#getassets) | **GET** /remote/sessions/{id}/assets | Retrieves available assets (images taken by ImpressionIST® , DNEye®  Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.
+[**CreateSession**](SessionsApi.md#createsession) | **POST** /sessions/{id} | Creates a session.
+[**DeleteSession**](SessionsApi.md#deletesession) | **DELETE** /sessions/{id} | Deletes a session.
+[**GetAssets**](SessionsApi.md#getassets) | **GET** /remote/sessions/{id}/assets | Retrieves available assets (images taken by ImpressionISTï¿½ , DNEyeï¿½  Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.
 [**GetB2bOptic**](SessionsApi.md#getb2boptic) | **GET** /sessions/{id}/b2boptic | Retrieves a session by ID represented as B2BOptic XML document.
 [**GetSession**](SessionsApi.md#getsession) | **GET** /sessions/{id} | Retrieves a session by ID.
 [**GetSessions**](SessionsApi.md#getsessions) | **GET** /sessions | Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as patientId, externalId, createdAfter, updatedAfter or to sort ascending or descending.
 [**ImportB2BOptic**](SessionsApi.md#importb2boptic) | **PUT** /sessions/{id} | Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.
-[**ImportB2BOpticAsNewSession**](SessionsApi.md#importb2bopticasnewsession) | **POST** /sessions | Imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
+[**ImportB2BOpticAsNewSession**](SessionsApi.md#importb2bopticasnewsession) | **POST** /sessions | Imports a B2BOptic XML document as a new session which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
+[**PatchSession**](SessionsApi.md#patchsession) | **PATCH** /sessions/{id} | Patches a session.
+[**UpdateSession**](SessionsApi.md#updatesession) | **PUT** /sessions/{id} | Updates a session.
 
+
+
+## CreateSession
+
+> SessionResponse CreateSession (SessionInput sessionInput)
+
+Creates a session.
+
+### Example
+
+```csharp
+namespace Example
+{
+    public class CreateSessionExample
+    {
+        public static void Main()
+        {
+            Configuration.Default.BasePath = "http://localhost:8280/api";
+            var apiInstance = new SessionsApi(Configuration.Default);
+            var sessionInput = new SessionInput();
+            sessionInput.Name = "Sample lenses";
+            sessionInput.PatientId = "";
+
+            try
+            {
+                SessionResponse result = apiInstance.CreateSession(sessionInput);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException e)
+            {
+                Debug.Print("Exception when calling SessionsApi.CreateSession: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **sessionInput** | **SessionInput** | SessionInput | 
+
+### Return type
+
+[**SessionResponse**](SessionResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Returns the created session |  -  |
+| **500** | Internal server error |  -  |
+
+
+## DeleteSession
+
+> String DeleteSession (string id)
+
+Deletes a session.
+
+### Example
+
+```csharp
+namespace Example
+{
+    public class DeleteSessionExample
+    {
+        public static void Main()
+        {
+            Configuration.Default.BasePath = "http://localhost:8280/api";
+            var apiInstance = new SessionsApi(Configuration.Default);
+            var id = id_example;
+
+            try
+            {
+                string result = apiInstance.DeleteSession(id);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException e)
+            {
+                Debug.Print("Exception when calling SessionsApi.DeleteSession: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String** | Id of the session | 
+
+### Return type
+
+[**String**]
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Returns the ID of the deleted session |  -  |
+| **404** | Session not found |  -  |
+| **500** | Internal server error |  -  |
 
 
 ## GetAssets
 
 > AssetsResponse GetAssets (string id)
 
-Retrieves available assets (images taken by ImpressionIST® , DNEye®  Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.
+Retrieves available assets (images taken by ImpressionISTï¿½ , DNEyeï¿½  Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.
 
 ### Example
 
@@ -34,13 +165,13 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "http://localhost/api";
+            Configuration.Default.BasePath = "http://localhost:8280/api";
             var apiInstance = new SessionsApi(Configuration.Default);
             var id = id_example;  // string | ID of the session
 
             try
             {
-                // Retrieves available assets (images taken by ImpressionIST® , DNEye®  Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.
+                // Retrieves available assets (images taken by ImpressionISTï¿½ , DNEyeï¿½  Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.
                 AssetsResponse result = apiInstance.GetAssets(id);
                 Debug.WriteLine(result);
             }
@@ -109,7 +240,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "http://localhost/api";
+            Configuration.Default.BasePath = "http://localhost:8280/api";
             var apiInstance = new SessionsApi(Configuration.Default);
             var id = id_example;  // string | ID of the session
 
@@ -184,7 +315,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "http://localhost/api";
+            Configuration.Default.BasePath = "http://localhost:8280/api";
             var apiInstance = new SessionsApi(Configuration.Default);
             var id = id_example;  // string | ID of the session
             var include = new List<string>(); // List<string> | List of related resources for including relationships directly into session such as B2BOptic or Patient.  (Supported values: b2boptic, patient) (optional) 
@@ -262,7 +393,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "http://localhost/api";
+            Configuration.Default.BasePath = "http://localhost:8280/api";
             var apiInstance = new SessionsApi(Configuration.Default);
             var first = 25;  // int | Read the first n sessions of the set. The default and maximum value is set to 25 sessions per request.
             var after = after_example;  // string | Read all sessions in the set after (below) this cursor. (optional) 
@@ -344,7 +475,7 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "http://localhost/api";
+            Configuration.Default.BasePath = "http://localhost:8280/api";
             var apiInstance = new SessionsApi(Configuration.Default);
             var id = id_example;  // string | ID of the session that needs to import data from B2BOptic XML document.
             var body = body_example;  // string | 
@@ -407,7 +538,7 @@ No authorization required
 
 > List&lt;string&gt; ImportB2BOpticAsNewSession (string body, string state = null)
 
-Imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
+Imports a B2BOptic XML document as a new session which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
 
 ### Example
 
@@ -424,14 +555,14 @@ namespace Example
     {
         public static void Main()
         {
-            Configuration.Default.BasePath = "http://localhost/api";
+            Configuration.Default.BasePath = "http://localhost:8280/api";
             var apiInstance = new SessionsApi(Configuration.Default);
             var body = body_example;  // string | 
             var state = state_example;  // string | State of the session that needs to import data from B2BOptic XML document.  (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED) (optional) 
 
             try
             {
-                // Imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
+                // Imports a B2BOptic XML document as a new session which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.
                 List<string> result = apiInstance.ImportB2BOpticAsNewSession(body, state);
                 Debug.WriteLine(result);
             }
@@ -479,3 +610,146 @@ No authorization required
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
+
+
+
+## PatchSession
+
+> SessionResponse PatchSession (string id, SessionInput sessionInput)
+
+Patches a session.
+
+### Example
+
+```csharp
+namespace Example
+{
+    public class PatchSessionExample
+    {
+        public static void Main()
+        {
+            Configuration.Default.BasePath = "http://localhost:8280/api";
+            var apiInstance = new SessionsApi(Configuration.Default);
+            
+            var sessionInput = new SessionInput();
+            sessionInput.Name = "Sample lenses 2";
+
+            try
+            {
+                SessionResponse result = apiInstance.PatchSession(id, sessionInput);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException e)
+            {
+                Debug.Print("Exception when calling SessionsApi.PatchSession: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String** | Id of the session | 
+ **sessionInput** | **SessionInput** | SessionInput | 
+
+### Return type
+
+[**SessionResponse**](SessionResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Returns the session according to the defined ID |  -  |
+| **404** | Session not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateSession
+
+> SessionResponse UpdateSession (string id, SessionInput sessionInput)
+
+Updates a session.
+
+### Example
+
+```csharp
+namespace Example
+{
+    public class UpdateSessionExample
+    {
+        public static void Main()
+        {
+            Configuration.Default.BasePath = "http://localhost:8280/api";
+            var apiInstance = new SessionsApi(Configuration.Default);
+            
+            var sessionInput = new SessionInput();
+            sessionInput.Name = "Maximilian";
+
+            try
+            {
+                SessionResponse result = apiInstance.UpdateSession(id, sessionInput);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException e)
+            {
+                Debug.Print("Exception when calling SessionsApi.UpdateSession: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String** | Id of the session | 
+ **sessionInput** | **SessionInput** | SessionInput | 
+
+### Return type
+
+[**SessionResponse**](SessionResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Returns the session according to the defined ID |  -  |
+| **404** | Session not found |  -  |
+| **500** | Internal server error |  -  |
+
+[[Back to top]](#)
+[[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
