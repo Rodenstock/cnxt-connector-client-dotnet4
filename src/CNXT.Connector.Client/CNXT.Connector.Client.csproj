@@ -68,8 +68,10 @@ Contact: cnxt@rodenstock.com
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs"
-             Exclude="obj\**" />
+    <Compile Include="**\*.cs" Exclude="obj\**" />
+    <Compile Include="Model\DNEyeScannerAssetsResponseLinksFarMesopicImageRight.cs" />
+    <Compile Include="Model\PatientInput.cs" />
+    <Compile Include="Model\SessionInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

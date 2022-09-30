@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "CNXT®-Connector",
-    "description": "The CNXT<sup>®</sup>-Connector is developed by Rodenstock GmbH to integrate data from measurement devices such as DNEye<sup>®</sup> Scanner, Rodenstock Fundus Scanner, and ImpressionIST<sup>®</sup> into 3rd party applications as well as into several applications of Rodenstock such as WinFit, Rodenstock Consulting etc. If you have any feedback then please feel free to contact us via email. Copyright © Rodenstock GmbH 2020",
-    "version": "1.0.5",
+    "title": "CNXT-API",
+    "description": "The CNXT-API is developed by Rodenstock GmbH to integrate data from measurement devices such as DNEye<sup>®</sup> Scanner, Rodenstock Fundus Scanner, and ImpressionIST<sup>®</sup> into 3rd party applications as well as into several applications of Rodenstock such as WinFit, Rodenstock Consulting etc. If you have any feedback then please feel free to contact us via email. Copyright © Rodenstock GmbH 2022",
+    "version": "1.5.0",
     "contact": {
       "name": "Rodenstock GmbH",
       "url": "https://www.rodenstock.com/cnxt",
@@ -26,10 +26,32 @@
   ],
   "servers": [
     {
+      "url": "/"
+    },
+    {
       "url": "/api"
     }
   ],
   "components": {
+    "securitySchemes": {
+      "oAuth2AuthCode": {
+        "type": "oauth2",
+        "description": "This API uses OAuth 2 with the authorization code grant flow. [More info](https://hub-develop.cnxt.rodenstock.com)",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://sso.cnxt.rodenstock.com/auth/realms/cnxt/protocol/openid-connect/auth",
+            "tokenUrl": "https://sso.cnxt.rodenstock.com/auth/realms/cnxt/protocol/openid-connect/token",
+            "refreshUrl": "https://sso.cnxt.rodenstock.com/auth/realms/cnxt/protocol/openid-connect/token",
+            "scopes": {}
+          }
+        }
+      }
+    },
+    "security": [
+      {
+        "oAuth2AuthCode": []
+      }
+    ],
     "schemas": {
       "AssetsResponse": {
         "type": "object",
@@ -148,6 +170,47 @@
           }
         }
       },
+      "Address": {
+        "type": "object",
+        "description": "Represents address information of a contact",
+        "properties": {
+          "street": {
+            "type": "string",
+            "description": "Name of the street"
+          },
+          "zip": {
+            "type": "string",
+            "description": "ZIP code"
+          },
+          "city": {
+            "type": "string",
+            "description": "Name of the city"
+          },
+          "country": {
+            "type": "string",
+            "description": "Name of the country"
+          }
+        }
+      },
+      "Contact": {
+        "type": "object",
+        "description": "Represents contact information of a patient",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/Address",
+            "nullable": true,
+            "description": "Address of the contact"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email address"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number"
+          }
+        }
+      },
       "Patient": {
         "type": "object",
         "description": "Represents a patient",
@@ -155,6 +218,10 @@
           "id": {
             "type": "string",
             "description": "ID of the patient"
+          },
+          "externalId": {
+            "type": "string",
+            "description": "External ID of the session, which is assigned to the session in a 3rd party application"
           },
           "title": {
             "type": "string",
@@ -170,7 +237,7 @@
           },
           "gender": {
             "type": "string",
-            "enum": ["Female", "Male", "Other", "Unknown"],
+            "enum": [ "Female", "Male", "Other", "Unknown" ],
             "description": "Gender of the patient (Supported values: Female, Male, Other, Unknown)"
           },
           "dateOfBirth": {
@@ -178,6 +245,11 @@
             "format": "date",
             "nullable": true,
             "description": "Date of birth of the patient"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/Contact",
+            "nullable": true,
+            "description": "Contact information of the patient"
           },
           "latestSessionId": {
             "type": "string",
@@ -207,7 +279,45 @@
             "description": "Date of modification of the patient"
           }
         },
-        "required": ["id", "firstName", "lastName", "dateOfBirth"]
+        "required": [ "firstName", "lastName", "dateOfBirth" ]
+      },
+      "PatientInput": {
+        "type": "object",
+        "description": "Represents a patient",
+        "properties": {
+          "externalId": {
+            "type": "string",
+            "description": "External ID of the session, which is assigned to the session in a 3rd party application"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the patient"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "First name of the patient"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "Last name of the patient"
+          },
+          "gender": {
+            "type": "string",
+            "enum": [ "Female", "Male", "Other", "Unknown" ],
+            "description": "Gender of the patient (Supported values: Female, Male, Other, Unknown)"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "format": "date",
+            "nullable": true,
+            "description": "Date of birth of the patient"
+          },
+          "contact": {
+            "$ref": "#/components/schemas/Contact",
+            "nullable": true,
+            "description": "Contact information of the patient"
+          }
+        }
       },
       "PatientResponse": {
         "description": "Represents a patient response",
@@ -278,12 +388,16 @@
             }
           }
         },
-        "required": ["self"]
+        "required": [ "self" ]
       },
       "PatientFilter": {
         "type": "object",
         "description": "Represents a patient filter for querying patients",
         "properties": {
+          "externalId": {
+            "type": "string",
+            "description": "External Id of a patient used in a 3rd party application to make it referenceable in CNXT"
+          },
           "search": {
             "type": "string",
             "description": "Full text search parameter which is used for finding patients by first name or last name"
@@ -363,7 +477,7 @@
             }
           }
         },
-        "required": ["self"]
+        "required": [ "self" ]
       },
       "PaginationLink": {
         "type": "object",
@@ -388,7 +502,7 @@
             }
           }
         },
-        "required": ["self"]
+        "required": [ "self" ]
       },
       "PageInfo": {
         "type": "object",
@@ -411,12 +525,12 @@
             "description": "Cursor to the last edge, or null if this page is empty"
           }
         },
-        "required": ["self"]
+        "required": [ "self" ]
       },
       "SessionState": {
         "description": "State of the session",
         "type": "string",
-        "enum": ["CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED"]
+        "enum": [ "CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED" ]
       },
       "SessionFilter": {
         "type": "object",
@@ -445,6 +559,21 @@
           "state": {
             "$ref": "#/components/schemas/SessionState",
             "description": "State of the session"
+          },
+          "hasDNEyeData": {
+            "type": "boolean",
+            "description": "Check whether the session contains DNEye data or not.",
+            "nullable": true
+          },
+          "hasImpressionISTData": {
+            "type": "boolean",
+            "description": "Check whether the session contains ImpressionIST data or not.",
+            "nullable": true
+          },
+          "hasRxData": {
+            "type": "boolean",
+            "description": "Check whether the session contains Rx data or not.",
+            "nullable": true
           }
         }
       },
@@ -484,7 +613,7 @@
           },
           "state": {
             "type": "string",
-            "enum": ["CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED"],
+            "enum": [ "CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED" ],
             "description": "State of the session. (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
           },
           "patientId": {
@@ -509,8 +638,38 @@
             "format": "date-time",
             "description": "Date of modification of the session"
           }
-        },
-        "required": ["id"]
+        }
+      },
+      "SessionInput": {
+        "type": "object",
+        "description": "Represents a session",
+        "properties": {
+          "externalId": {
+            "type": "string",
+            "description": "External ID of the session, which is assigned to the session in a 3rd party application"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the session"
+          },
+          "notes": {
+            "type": "string",
+            "description": "Notes of the session"
+          },
+          "state": {
+            "type": "string",
+            "enum": [ "CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED" ],
+            "description": "State of the session. (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
+          },
+          "patientId": {
+            "type": "string",
+            "description": "Patient ID associated with the session"
+          },
+          "b2bOptic": {
+            "description": "Assigned B2BOptic related data of the session",
+            "$ref": "#/components/schemas/B2BOptic"
+          }
+        }
       },
       "SessionResponse": {
         "description": "Represents a session response",
@@ -557,6 +716,11 @@
       "get": {
         "operationId": "getPatient",
         "summary": "Retrieves a patient by ID.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -571,7 +735,7 @@
             "name": "include",
             "required": false,
             "in": "query",
-            "description": "List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate \r\n(Supported values: session, latestSessionId, latestSessionUpdate)",
+            "description": "List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate \r\n(Supported values: contact, session, latestSessionId, latestSessionUpdate)",
             "style": "form",
             "explode": false,
             "schema": {
@@ -600,13 +764,157 @@
             "description": "Internal server error"
           }
         },
-        "tags": ["patients"]
+        "tags": [ "patients" ]
+      },
+      "patch": {
+        "operationId": "patchPatient",
+        "summary": "Patches a patient.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the patient",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "The patient to patch.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatientInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the patient according to the defined ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Patient not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [ "patients" ]
+      },
+      "put": {
+        "operationId": "updatePatient",
+        "summary": "Updates a patient.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the patient",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "The patient to update.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatientInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the patient according to the defined ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Patient not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [ "patients" ]
+      },
+      "delete": {
+        "operationId": "deletePatient",
+        "summary": "Deletes a patient.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the patient",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the ID of the deleted patient",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Patient not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [ "patients" ]
       }
     },
     "/patients": {
       "get": {
         "operationId": "getPatients",
-        "summary": "Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as lastName, firstName, createdAfter, updatedAfter or to sort ascending or descending.",
+        "summary": "Retrieves a list of patients. The endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as externalId, lastName, firstName, createdAfter, updatedAfter or to sort in ascending or descending order.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
         "parameters": [
           {
             "name": "first",
@@ -634,7 +942,7 @@
             "name": "filter",
             "required": false,
             "in": "query",
-            "description": "Filter patients by parameters e.g. lastName for filtering patients by their last name.\r\n(Supported values: firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter)",
+            "description": "Filter patients by parameters e.g. lastName for filtering patients by their last name.\r\n(Supported values: externalId, firstName, lastName, search, dateOfBirth, createdAfter, updatedAfter)",
             "schema": {
               "$ref": "#/components/schemas/PatientFilter"
             },
@@ -659,7 +967,7 @@
             "name": "include",
             "required": false,
             "in": "query",
-            "description": "List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate \r\n(Supported values: session, latestSessionId, latestSessionUpdate)",
+            "description": "List of related resources for including relationships or properties directly into patient such as Session, latestSessionId, or latestSessionUpdate \r\n(Supported values: contact, session, latestSessionId, latestSessionUpdate)",
             "style": "form",
             "explode": false,
             "schema": {
@@ -685,13 +993,54 @@
             "description": "Internal server error"
           }
         },
-        "tags": ["patients"]
+        "tags": [ "patients" ]
+      },
+      "post": {
+        "operationId": "createPatient",
+        "summary": "Creates a patient.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "The patient to create.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PatientInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Returns the created patient",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [ "patients" ]
       }
     },
     "/sessions/{id}": {
       "get": {
         "operationId": "getSession",
         "summary": "Retrieves a session by ID.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -738,17 +1087,49 @@
             "description": "Internal server error"
           }
         },
-        "tags": ["sessions"]
+        "tags": [ "sessions" ]
       },
       "put": {
         "operationId": "importB2BOptic",
-        "summary": "Imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.",
+        "summary": "Updates a session or imports a B2BOptic XML document defined by the session ID. This B2BOptic XML document is assigned to an existing session via the defined session ID or assigned to this patient as a new session via the specified id of the session and specified first name, last name, or date of birth of the patient.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "required": true,
             "in": "path",
             "description": "ID of the session that needs to import data from B2BOptic XML document.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "externalId",
+            "required": false,
+            "in": "query",
+            "description": "External ID of a session used in a 3rd party application to make it referenceable in CNXT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "patientId",
+            "required": false,
+            "in": "query",
+            "description": "ID of the patient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionName",
+            "required": false,
+            "in": "query",
+            "description": "Name of the session",
             "schema": {
               "type": "string"
             }
@@ -761,12 +1142,51 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "origin",
+            "required": false,
+            "in": "query",
+            "description": "Name of the origin",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
           "required": true,
+          "description": "The session to update.",
           "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionInput"
+              }
+            },
             "application/xml": {
+              "schema": {
+                "type": "string",
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
+              }
+            },
+            "application/x.b2boptic.jobdata+xml": {
+              "schema": {
+                "type": "string",
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOpticJobData>...</b2bOpticJobData>"
+              }
+            },
+            "application/x.b2boptic.jobdata+xml;version=1.6.3": {
+              "schema": {
+                "type": "string",
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOpticJobData>...</b2bOpticJobData>"
+              }
+            },
+            "application/x.b2boptic.lensorder+xml": {
+              "schema": {
+                "type": "string",
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
+              }
+            },
+            "application/x.b2boptic.lensorder+xml;version=1.6.3": {
               "schema": {
                 "type": "string",
                 "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
@@ -775,6 +1195,16 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "Returns the session according to the defined ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
           "202": {
             "description": "The session has been successfully created or updated. Additionally, the assigned session IDs are returned as array of UUIDs.",
             "content": {
@@ -800,13 +1230,107 @@
             "description": "Internal server error"
           }
         },
-        "tags": ["sessions"]
+        "tags": [ "sessions" ]
+      },
+      "patch": {
+        "operationId": "patchSession",
+        "summary": "Patches a session.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the session",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "description": "The session to patch.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the session according to the defined ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Session not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [ "sessions" ]
+      },
+      "delete": {
+        "operationId": "deleteSession",
+        "summary": "Deletes a session.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "ID of the session",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the ID of the deleted session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Session not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "tags": [ "sessions" ]
       }
     },
     "/sessions": {
       "get": {
         "operationId": "getSessions",
-        "summary": "Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as patientId, externalId, createdAfter, updatedAfter or to sort ascending or descending.",
+        "summary": "Retrieves a list of sessions. This endpoint implements pagination by using links. Additionally, it is possible to filter by parameters such as patientId, externalId, createdAfter, updatedAfter, hasDNEyeData, hasImpressionISTData, hasRxData or to sort in ascending or descending order.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
         "parameters": [
           {
             "name": "first",
@@ -834,7 +1358,7 @@
             "name": "filter",
             "required": false,
             "in": "query",
-            "description": "Filter session by parameters e.g. patientId, externalId, state, createdAfter, or updatedAfter. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.\r\n(Supported values: patientId, externalId, createdAfter, updatedAfter, state).\r\n\r\nA state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED)",
+            "description": "Filter session by parameters e.g. patientId, externalId, state, createdAfter, updatedAfter, hasDNEyeData, hasImpressionISTData, or hasRxData. CreatedAfter is used for filtering sessions which are created after a specified date. UpdatedAfter is used for filtering sessions which are updated after a specified date.\r\n(Supported values: patientId, externalId, createdAfter, updatedAfter, state, hasDNEyeData, hasImpressionISTData, hasRxData).\r\n\r\nA state has the following supported values: (OPEN, CLOSED, ORDERED, EXPORTED, SAVED)",
             "schema": {
               "$ref": "#/components/schemas/SessionFilter"
             },
@@ -885,12 +1409,53 @@
             "description": "Internal server error"
           }
         },
-        "tags": ["sessions"]
+        "tags": [ "sessions" ]
       },
       "post": {
         "operationId": "importB2BOpticAsNewSession",
-        "summary": "Imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.",
+        "summary": "Creates a session or imports a B2BOptic XML document as a new session, which is assigned to an existing patient via Patient id. If the patient does not exist with the given patient id, a new patient is created and the new session is associated accordingly.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
         "parameters": [
+          {
+            "name": "sessionId",
+            "required": false,
+            "in": "query",
+            "description": "Session ID as UUID used in a 3rd party application to make it referenceable in CNXT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "externalId",
+            "required": false,
+            "in": "query",
+            "description": "External ID of a session used in a 3rd party application to make it referenceable in CNXT",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "patientId",
+            "required": false,
+            "in": "query",
+            "description": "ID of the patient",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "sessionName",
+            "required": false,
+            "in": "query",
+            "description": "Name of the session",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "state",
             "required": false,
@@ -899,12 +1464,51 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "origin",
+            "required": false,
+            "in": "query",
+            "description": "Name of the origin",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
           "required": true,
+          "description": "The session to create.",
           "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SessionInput"
+              }
+            },
             "application/xml": {
+              "schema": {
+                "type": "string",
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
+              }
+            },
+            "application/x.b2boptic.jobdata+xml": {
+              "schema": {
+                "type": "string",
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOpticJobData>...</b2bOpticJobData>"
+              }
+            },
+            "application/x.b2boptic.jobdata+xml;version=1.6.3": {
+              "schema": {
+                "type": "string",
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOpticJobData>...</b2bOpticJobData>"
+              }
+            },
+            "application/x.b2boptic.lensorder+xml": {
+              "schema": {
+                "type": "string",
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
+              }
+            },
+            "application/x.b2boptic.lensorder+xml;version=1.6.3": {
               "schema": {
                 "type": "string",
                 "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
@@ -913,6 +1517,16 @@
           }
         },
         "responses": {
+          "201": {
+            "description": "Returns the created session",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
           "202": {
             "description": "The session has been successfully created/imported. Additionally, the assigned session IDs are returned as array of UUIDs.",
             "content": {
@@ -935,19 +1549,49 @@
             "description": "Internal server error"
           }
         },
-        "tags": ["sessions"]
+        "tags": [ "sessions" ]
       }
     },
     "/sessions/{id}/b2boptic": {
       "get": {
         "operationId": "getB2bOptic",
         "summary": "Retrieves a session by ID represented as B2BOptic XML document.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
+        "produces": [
+          "application/xml",
+          "application/x.b2boptic.jobdata+xml",
+          "application/x.b2boptic.jobdata+xml;version=1.6.3",
+          "application/x.b2boptic.lensorder+xml",
+          "application/x.b2boptic.lensorder+xml;version=1.6.3"
+        ],
         "parameters": [
           {
             "name": "id",
             "required": true,
             "in": "path",
             "description": "ID of the session",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "externalId",
+            "required": false,
+            "in": "query",
+            "description": "External ID of the session",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "experimental",
+            "required": false,
+            "in": "query",
+            "description": "Export experimental elements in B2BOptic XML \r\n(Supported values: true or false). \r\nThe default value is set to true.",
             "schema": {
               "type": "string"
             }
@@ -962,6 +1606,30 @@
                   "type": "string",
                   "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
                 }
+              },
+              "application/x.b2boptic.jobdata+xml": {
+                "schema": {
+                  "type": "string",
+                  "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOpticJobData>...</b2bOpticJobData>"
+                }
+              },
+              "application/x.b2boptic.jobdata+xml;version=1.6.3": {
+                "schema": {
+                  "type": "string",
+                  "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOpticJobData>...</b2bOpticJobData>"
+                }
+              },
+              "application/x.b2boptic.lensorder+xml": {
+                "schema": {
+                  "type": "string",
+                  "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
+                }
+              },
+              "application/x.b2boptic.lensorder+xml;version=1.6.3": {
+                "schema": {
+                  "type": "string",
+                  "example": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <b2bOptic>...</b2bOptic>"
+                }
               }
             }
           },
@@ -972,13 +1640,18 @@
             "description": "Internal server error"
           }
         },
-        "tags": ["sessions"]
+        "tags": [ "sessions" ]
       }
     },
     "/remote/sessions/{id}/assets": {
       "get": {
         "operationId": "getAssets",
         "summary": "Retrieves available assets (images taken by ImpressionIST®, DNEye® Scanner, Rodenstock Fundus Scanner etc.) according to the defined session ID.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1008,13 +1681,18 @@
             "description": "Internal server error"
           }
         },
-        "tags": ["sessions"]
+        "tags": [ "sessions" ]
       }
     },
     "/remote/dneye/{id}/assets": {
       "get": {
         "operationId": "getDNEyeScannerAssets",
         "summary": "Retrieves available DNEye Scanner assets according to the defined asset ID.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1044,13 +1722,18 @@
             "description": "Internal server error"
           }
         },
-        "tags": ["assets"]
+        "tags": [ "assets" ]
       }
     },
     "/remote/impressionist/{id}/assets": {
       "get": {
         "operationId": "getImpressionISTAssets",
         "summary": "Retrieves available ImpressionIST assets according to the defined asset ID.",
+        "security": [
+          {
+            "oAuth2AuthCode": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
@@ -1080,7 +1763,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": ["assets"]
+        "tags": [ "assets" ]
       }
     }
   }
