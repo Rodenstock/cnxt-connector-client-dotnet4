@@ -39,7 +39,7 @@ namespace CNXT.Connector.Client.Model
         /// <param name="farPhotopicImageLeft">farPhotopicImageLeft.</param>
         /// <param name="corneaImageRight">corneaImageRight.</param>
         /// <param name="corneaImageLeft">corneaImageLeft.</param>
-        public DNEyeScannerAssetsResponseLinks(DNEyeScannerAssetsResponseLinksFarMesopicImageRight farMesopicImageRight = default(DNEyeScannerAssetsResponseLinksFarMesopicImageRight), DNEyeScannerAssetsResponseLinksFarMesopicImageRight farMesopicImageLeft = default(DNEyeScannerAssetsResponseLinksFarMesopicImageRight), DNEyeScannerAssetsResponseLinksFarMesopicImageRight farPhotopicImageRight = default(DNEyeScannerAssetsResponseLinksFarMesopicImageRight), DNEyeScannerAssetsResponseLinksFarMesopicImageRight farPhotopicImageLeft = default(DNEyeScannerAssetsResponseLinksFarMesopicImageRight), DNEyeScannerAssetsResponseLinksFarMesopicImageRight corneaImageRight = default(DNEyeScannerAssetsResponseLinksFarMesopicImageRight), DNEyeScannerAssetsResponseLinksFarMesopicImageRight corneaImageLeft = default(DNEyeScannerAssetsResponseLinksFarMesopicImageRight))
+        public DNEyeScannerAssetsResponseLinks(Object farMesopicImageRight = default(Object), Object farMesopicImageLeft = default(Object), Object farPhotopicImageRight = default(Object), Object farPhotopicImageLeft = default(Object), Object corneaImageRight = default(Object), Object corneaImageLeft = default(Object))
         {
             this.FarMesopicImageRight = farMesopicImageRight;
             this.FarMesopicImageLeft = farMesopicImageLeft;
@@ -53,37 +53,37 @@ namespace CNXT.Connector.Client.Model
         /// Gets or Sets FarMesopicImageRight
         /// </summary>
         [DataMember(Name="farMesopicImageRight", EmitDefaultValue=false)]
-        public DNEyeScannerAssetsResponseLinksFarMesopicImageRight FarMesopicImageRight { get; set; }
+        public Object FarMesopicImageRight { get; set; }
 
         /// <summary>
         /// Gets or Sets FarMesopicImageLeft
         /// </summary>
         [DataMember(Name="farMesopicImageLeft", EmitDefaultValue=false)]
-        public DNEyeScannerAssetsResponseLinksFarMesopicImageRight FarMesopicImageLeft { get; set; }
+        public Object FarMesopicImageLeft { get; set; }
 
         /// <summary>
         /// Gets or Sets FarPhotopicImageRight
         /// </summary>
         [DataMember(Name="farPhotopicImageRight", EmitDefaultValue=false)]
-        public DNEyeScannerAssetsResponseLinksFarMesopicImageRight FarPhotopicImageRight { get; set; }
+        public Object FarPhotopicImageRight { get; set; }
 
         /// <summary>
         /// Gets or Sets FarPhotopicImageLeft
         /// </summary>
         [DataMember(Name="farPhotopicImageLeft", EmitDefaultValue=false)]
-        public DNEyeScannerAssetsResponseLinksFarMesopicImageRight FarPhotopicImageLeft { get; set; }
+        public Object FarPhotopicImageLeft { get; set; }
 
         /// <summary>
         /// Gets or Sets CorneaImageRight
         /// </summary>
         [DataMember(Name="corneaImageRight", EmitDefaultValue=false)]
-        public DNEyeScannerAssetsResponseLinksFarMesopicImageRight CorneaImageRight { get; set; }
+        public Object CorneaImageRight { get; set; }
 
         /// <summary>
         /// Gets or Sets CorneaImageLeft
         /// </summary>
         [DataMember(Name="corneaImageLeft", EmitDefaultValue=false)]
-        public DNEyeScannerAssetsResponseLinksFarMesopicImageRight CorneaImageLeft { get; set; }
+        public Object CorneaImageLeft { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

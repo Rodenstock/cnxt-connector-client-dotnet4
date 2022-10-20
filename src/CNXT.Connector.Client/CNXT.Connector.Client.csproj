@@ -91,7 +91,6 @@ Contact: cnxt@rodenstock.com
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Model\DNEyeScannerAssetsResponse.cs" />
     <Compile Include="Model\DNEyeScannerAssetsResponseLinks.cs" />
-    <Compile Include="Model\DNEyeScannerAssetsResponseLinksFarMesopicImageRight.cs" />
     <Compile Include="Model\ImpressionISTAssetsResponse.cs" />
     <Compile Include="Model\ImpressionISTAssetsResponseLinks.cs" />
     <Compile Include="Model\PageInfo.cs" />
