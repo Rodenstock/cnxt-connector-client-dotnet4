@@ -69,10 +69,56 @@ Contact: cnxt@rodenstock.com
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="obj\**" />
+    <Compile Include="Api\AssetsApi.cs" />
+    <Compile Include="Api\PatientsApi.cs" />
+    <Compile Include="Api\SessionsApi.cs" />
+    <Compile Include="Client\ApiClient.cs" />
+    <Compile Include="Client\ApiException.cs" />
+    <Compile Include="Client\ApiResponse.cs" />
+    <Compile Include="Client\Configuration.cs" />
+    <Compile Include="Client\ExceptionFactory.cs" />
+    <Compile Include="Client\GlobalConfiguration.cs" />
+    <Compile Include="Client\IApiAccessor.cs" />
+    <Compile Include="Client\IReadableConfiguration.cs" />
+    <Compile Include="Client\OpenAPIDateConverter.cs" />
+    <Compile Include="Client\ReadOnlyDictionary.cs" />
+    <Compile Include="Model\Address.cs" />
+    <Compile Include="Model\AssetsResponse.cs" />
+    <Compile Include="Model\AssetsResponseLinks.cs" />
+    <Compile Include="Model\AssetsResponseLinksDneyescanner.cs" />
+    <Compile Include="Model\AssetsResponseLinksImpressionist.cs" />
+    <Compile Include="Model\B2BOptic.cs" />
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\DNEyeScannerAssetsResponse.cs" />
+    <Compile Include="Model\DNEyeScannerAssetsResponseLinks.cs" />
     <Compile Include="Model\DNEyeScannerAssetsResponseLinksFarMesopicImageRight.cs" />
+    <Compile Include="Model\ImpressionISTAssetsResponse.cs" />
+    <Compile Include="Model\ImpressionISTAssetsResponseLinks.cs" />
+    <Compile Include="Model\PageInfo.cs" />
+    <Compile Include="Model\PaginationLink.cs" />
+    <Compile Include="Model\PaginationLinkNext.cs" />
+    <Compile Include="Model\Patient.cs" />
+    <Compile Include="Model\PatientFilter.cs" />
     <Compile Include="Model\PatientInput.cs" />
+    <Compile Include="Model\PatientLink.cs" />
+    <Compile Include="Model\PatientLinkPatient.cs" />
+    <Compile Include="Model\PatientLinkSelf.cs" />
+    <Compile Include="Model\PatientLinkSessionsInner.cs" />
+    <Compile Include="Model\PatientResponse.cs" />
+    <Compile Include="Model\PatientResponseAllOf.cs" />
+    <Compile Include="Model\PatientsResponse.cs" />
+    <Compile Include="Model\Session.cs" />
+    <Compile Include="Model\SessionFilter.cs" />
     <Compile Include="Model\SessionInput.cs" />
+    <Compile Include="Model\SessionLink.cs" />
+    <Compile Include="Model\SessionLinkB2bOptic.cs" />
+    <Compile Include="Model\SessionLinkPatient.cs" />
+    <Compile Include="Model\SessionLinkSession.cs" />
+    <Compile Include="Model\SessionResponse.cs" />
+    <Compile Include="Model\SessionResponseAllOf.cs" />
+    <Compile Include="Model\SessionsResponse.cs" />
+    <Compile Include="Model\SessionState.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
