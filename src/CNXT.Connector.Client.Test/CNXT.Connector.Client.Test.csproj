@@ -66,7 +66,45 @@ Contact: cnxt@rodenstock.com
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="obj\**" />
+    <Compile Include="Api\AssetsApiTests.cs" />
+    <Compile Include="Api\PatientsApiTests.cs" />
+    <Compile Include="Api\SessionsApiTests.cs" />
+    <Compile Include="Client\JsonSubTypesTests.cs" />
+    <Compile Include="Model\AddressTests.cs" />
+    <Compile Include="Model\AssetsResponseLinksDneyescannerTests.cs" />
+    <Compile Include="Model\AssetsResponseLinksImpressionistTests.cs" />
+    <Compile Include="Model\AssetsResponseLinksTests.cs" />
+    <Compile Include="Model\AssetsResponseTests.cs" />
+    <Compile Include="Model\B2BOpticTests.cs" />
+    <Compile Include="Model\ContactTests.cs" />
+    <Compile Include="Model\DNEyeScannerAssetsResponseLinksTests.cs" />
+    <Compile Include="Model\DNEyeScannerAssetsResponseTests.cs" />
+    <Compile Include="Model\ImpressionISTAssetsResponseLinksTests.cs" />
+    <Compile Include="Model\ImpressionISTAssetsResponseTests.cs" />
+    <Compile Include="Model\PageInfoTests.cs" />
+    <Compile Include="Model\PaginationLinkNextTests.cs" />
+    <Compile Include="Model\PaginationLinkTests.cs" />
+    <Compile Include="Model\PatientFilterTests.cs" />
+    <Compile Include="Model\PatientInputTests.cs" />
+    <Compile Include="Model\PatientLinkPatientTests.cs" />
+    <Compile Include="Model\PatientLinkSelfTests.cs" />
+    <Compile Include="Model\PatientLinkSessionsInnerTests.cs" />
+    <Compile Include="Model\PatientLinkTests.cs" />
+    <Compile Include="Model\PatientResponseAllOfTests.cs" />
+    <Compile Include="Model\PatientResponseTests.cs" />
+    <Compile Include="Model\PatientsResponseTests.cs" />
+    <Compile Include="Model\PatientTests.cs" />
+    <Compile Include="Model\SessionFilterTests.cs" />
+    <Compile Include="Model\SessionInputTests.cs" />
+    <Compile Include="Model\SessionLinkB2bOpticTests.cs" />
+    <Compile Include="Model\SessionLinkPatientTests.cs" />
+    <Compile Include="Model\SessionLinkSessionTests.cs" />
+    <Compile Include="Model\SessionLinkTests.cs" />
+    <Compile Include="Model\SessionResponseAllOfTests.cs" />
+    <Compile Include="Model\SessionResponseTests.cs" />
+    <Compile Include="Model\SessionsResponseTests.cs" />
+    <Compile Include="Model\SessionStateTests.cs" />
+    <Compile Include="Model\SessionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

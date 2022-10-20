@@ -35,7 +35,7 @@ namespace CNXT.Connector.Client.Model
         /// </summary>
         /// <param name="topImage">topImage.</param>
         /// <param name="bottomImage">bottomImage.</param>
-        public ImpressionISTAssetsResponseLinks(DNEyeScannerAssetsResponseLinksFarMesopicImageRight topImage = default(DNEyeScannerAssetsResponseLinksFarMesopicImageRight), DNEyeScannerAssetsResponseLinksFarMesopicImageRight bottomImage = default(DNEyeScannerAssetsResponseLinksFarMesopicImageRight))
+        public ImpressionISTAssetsResponseLinks(Object topImage = default(Object), Object bottomImage = default(Object))
         {
             this.TopImage = topImage;
             this.BottomImage = bottomImage;
@@ -45,13 +45,13 @@ namespace CNXT.Connector.Client.Model
         /// Gets or Sets TopImage
         /// </summary>
         [DataMember(Name="topImage", EmitDefaultValue=false)]
-        public DNEyeScannerAssetsResponseLinksFarMesopicImageRight TopImage { get; set; }
+        public Object TopImage { get; set; }
 
         /// <summary>
         /// Gets or Sets BottomImage
         /// </summary>
         [DataMember(Name="bottomImage", EmitDefaultValue=false)]
-        public DNEyeScannerAssetsResponseLinksFarMesopicImageRight BottomImage { get; set; }
+        public Object BottomImage { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
