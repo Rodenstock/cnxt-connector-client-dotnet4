@@ -237,7 +237,7 @@
           },
           "gender": {
             "type": "string",
-            "enum": [ "Female", "Male", "Other", "Unknown" ],
+            "enum": ["Female", "Male", "Other", "Unknown"],
             "description": "Gender of the patient (Supported values: Female, Male, Other, Unknown)"
           },
           "dateOfBirth": {
@@ -279,7 +279,7 @@
             "description": "Date of modification of the patient"
           }
         },
-        "required": [ "firstName", "lastName", "dateOfBirth" ]
+        "required": ["firstName", "lastName", "dateOfBirth"]
       },
       "PatientInput": {
         "type": "object",
@@ -303,7 +303,7 @@
           },
           "gender": {
             "type": "string",
-            "enum": [ "Female", "Male", "Other", "Unknown" ],
+            "enum": ["Female", "Male", "Other", "Unknown"],
             "description": "Gender of the patient (Supported values: Female, Male, Other, Unknown)"
           },
           "dateOfBirth": {
@@ -388,7 +388,7 @@
             }
           }
         },
-        "required": [ "self" ]
+        "required": ["self"]
       },
       "PatientFilter": {
         "type": "object",
@@ -477,7 +477,7 @@
             }
           }
         },
-        "required": [ "self" ]
+        "required": ["self"]
       },
       "PaginationLink": {
         "type": "object",
@@ -502,7 +502,7 @@
             }
           }
         },
-        "required": [ "self" ]
+        "required": ["self"]
       },
       "PageInfo": {
         "type": "object",
@@ -525,12 +525,12 @@
             "description": "Cursor to the last edge, or null if this page is empty"
           }
         },
-        "required": [ "self" ]
+        "required": ["self"]
       },
       "SessionState": {
         "description": "State of the session",
         "type": "string",
-        "enum": [ "CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED" ]
+        "enum": ["CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED"]
       },
       "SessionFilter": {
         "type": "object",
@@ -613,7 +613,7 @@
           },
           "state": {
             "type": "string",
-            "enum": [ "CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED" ],
+            "enum": ["CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED"],
             "description": "State of the session. (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
           },
           "patientId": {
@@ -658,7 +658,7 @@
           },
           "state": {
             "type": "string",
-            "enum": [ "CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED" ],
+            "enum": ["CLOSED", "OPEN", "ORDERED", "EXPORTED", "SAVED"],
             "description": "State of the session. (Supported values: OPEN, CLOSED, ORDERED, EXPORTED, SAVED)"
           },
           "patientId": {
@@ -764,7 +764,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "patients" ]
+        "tags": ["patients"]
       },
       "patch": {
         "operationId": "patchPatient",
@@ -814,7 +814,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "patients" ]
+        "tags": ["patients"]
       },
       "put": {
         "operationId": "updatePatient",
@@ -864,7 +864,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "patients" ]
+        "tags": ["patients"]
       },
       "delete": {
         "operationId": "deletePatient",
@@ -903,7 +903,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "patients" ]
+        "tags": ["patients"]
       }
     },
     "/patients": {
@@ -993,7 +993,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "patients" ]
+        "tags": ["patients"]
       },
       "post": {
         "operationId": "createPatient",
@@ -1029,7 +1029,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "patients" ]
+        "tags": ["patients"]
       }
     },
     "/sessions/{id}": {
@@ -1087,7 +1087,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "sessions" ]
+        "tags": ["sessions"]
       },
       "put": {
         "operationId": "importB2BOptic",
@@ -1230,7 +1230,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "sessions" ]
+        "tags": ["sessions"]
       },
       "patch": {
         "operationId": "patchSession",
@@ -1280,7 +1280,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "sessions" ]
+        "tags": ["sessions"]
       },
       "delete": {
         "operationId": "deleteSession",
@@ -1319,7 +1319,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "sessions" ]
+        "tags": ["sessions"]
       }
     },
     "/sessions": {
@@ -1409,7 +1409,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "sessions" ]
+        "tags": ["sessions"]
       },
       "post": {
         "operationId": "importB2BOpticAsNewSession",
@@ -1549,7 +1549,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "sessions" ]
+        "tags": ["sessions"]
       }
     },
     "/sessions/{id}/b2boptic": {
@@ -1640,7 +1640,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "sessions" ]
+        "tags": ["sessions"]
       }
     },
     "/remote/sessions/{id}/assets": {
@@ -1681,7 +1681,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "sessions" ]
+        "tags": ["sessions"]
       }
     },
     "/remote/dneye/{id}/assets": {
@@ -1722,7 +1722,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "assets" ]
+        "tags": ["assets"]
       }
     },
     "/remote/impressionist/{id}/assets": {
@@ -1763,7 +1763,7 @@
             "description": "Internal server error"
           }
         },
-        "tags": [ "assets" ]
+        "tags": ["assets"]
       }
     }
   }
