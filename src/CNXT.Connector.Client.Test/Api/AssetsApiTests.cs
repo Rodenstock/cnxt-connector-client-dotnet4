@@ -62,7 +62,7 @@ namespace CNXT.Connector.Client.Test
             //Assert.IsInstanceOf(typeof(AssetsApi), instance);
         }
 
-        
+
         /// <summary>
         /// Test GetDNEyeScannerAssets
         /// </summary>
@@ -74,7 +74,7 @@ namespace CNXT.Connector.Client.Test
             //var response = instance.GetDNEyeScannerAssets(id);
             //Assert.IsInstanceOf(typeof(DNEyeScannerAssetsResponse), response, "response is DNEyeScannerAssetsResponse");
         }
-        
+
         /// <summary>
         /// Test GetImpressionISTAssets
         /// </summary>
@@ -86,7 +86,7 @@ namespace CNXT.Connector.Client.Test
             //var response = instance.GetImpressionISTAssets(id);
             //Assert.IsInstanceOf(typeof(ImpressionISTAssetsResponse), response, "response is ImpressionISTAssetsResponse");
         }
-        
+
     }
 
 }

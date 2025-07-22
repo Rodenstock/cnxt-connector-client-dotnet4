@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using RestSharp;
 
 namespace CNXT.Connector.Client.Client
 {
@@ -121,7 +122,7 @@ namespace CNXT.Connector.Client.Client
             ApiKeyPrefix = new ConcurrentDictionary<string, string>();
 
             // Setting Timeout has side effects (forces ApiClient creation).
-            Timeout = 100000;
+            Timeout = TimeSpan.FromMilliseconds(100000);
         }
 
         /// <summary>
@@ -232,9 +233,9 @@ namespace CNXT.Connector.Client.Client
             set {
                 _basePath = value;
                 // pass-through to ApiClient if it's set.
-                if(_apiClient != null) {
-                    _apiClient.RestClient.BaseUrl = new Uri(_basePath);
-                }
+                //if(_apiClient != null) {
+                //    _apiClient.RestClient.BaseUrl = new Uri(_basePath);
+                //}
             }
         }
 
@@ -243,14 +244,16 @@ namespace CNXT.Connector.Client.Client
         /// </summary>
         public virtual IDictionary<string, string> DefaultHeader { get; set; }
 
+        private TimeSpan? _timeout = null;
         /// <summary>
         /// Gets or sets the HTTP timeout (milliseconds) of ApiClient. Default to 100000 milliseconds.
         /// </summary>
-        public virtual int Timeout
+        public virtual TimeSpan? Timeout
         {
-            
-            get { return ApiClient.RestClient.Timeout; }
-            set { ApiClient.RestClient.Timeout = value; }
+            get { return _timeout; }
+            set { _timeout = value; }
+            //get { return ApiClient.RestClient.Options.Timeout; }
+            //set { ApiClient.RestClient.Timeout = value; }
         }
 
         /// <summary>

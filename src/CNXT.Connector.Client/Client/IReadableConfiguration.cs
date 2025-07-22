@@ -9,6 +9,7 @@
  */
 
 
+using System;
 using System.Collections.Generic;
 
 namespace CNXT.Connector.Client.Client
@@ -64,7 +65,7 @@ namespace CNXT.Connector.Client.Client
         /// Gets the HTTP connection timeout (in milliseconds)
         /// </summary>
         /// <value>HTTP connection timeout.</value>
-        int Timeout { get; }
+        TimeSpan? Timeout { get; }
 
         /// <summary>
         /// Gets the user agent.
